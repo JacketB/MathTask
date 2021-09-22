@@ -23,7 +23,7 @@ const Login = () => {
                 <button className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg">
                   Вход
                 </button>
-                <a href="#" className="px-3 text-sm hover:underline">
+                <a className="px-3 text-sm hover:underline">
                   или создайте аккаунт
                 </a>
               </div>

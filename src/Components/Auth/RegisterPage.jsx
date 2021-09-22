@@ -23,7 +23,7 @@ const Register = () => {
                 <button className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg">
                   Регистрация
                 </button>
-                <a href="#" className="px-3 text-sm hover:underline">
+                <a className="px-3 text-sm hover:underline">
                   или войдите в аккаунт
                 </a>
               </div>

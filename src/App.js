@@ -6,8 +6,6 @@ import Navbar from "./Components/Navigation/Navbar";
 import Profile from "./Components/Profile/Profile";
 import Homepage from "./Components/Home/Homepage";
 import Task from "./Components/Task/TaskPage";
-import Login from "./Components/Auth/LoginPage";
-import Register from "./Components/Auth/RegisterPage";
 function App() {
   return (
     <BrowserRouter>
