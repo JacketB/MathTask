@@ -1,4 +1,6 @@
 [[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200
+  from = "/old-path"
+  to = "/new-path"
+  status = 301
+  force = false
+  query = {path = ":path"}
