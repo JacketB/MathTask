@@ -4,3 +4,4 @@
   status = 301
   force = false
   query = {path = ":path"}
+  command = "CI= npm run build"
