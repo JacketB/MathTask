@@ -14,7 +14,7 @@ function App() {
           <Header />
           <Navbar />
           <div className="content">
-            <Route path="/" component={Homepage} />
+            <Route path="/" exact={true} component={Homepage} />
             <Route path="/profile" component={Profile} />
             <Route path="/task" component={Task} />
           </div>
