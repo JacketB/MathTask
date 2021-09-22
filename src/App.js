@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 import "./App.css";
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navigation/Navbar";
@@ -10,15 +9,17 @@ import Task from "./Components/Task/TaskPage";
 function App() {
   return (
     <BrowserRouter>
-      <div className="wrapper">
-        <Header />
-        <Navbar />
-        <div className="content">
-          <Route path="/home" component={Homepage} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/task" component={Task} />
+      <Switch>
+        <div className="wrapper">
+          <Header />
+          <Navbar />
+          <div className="content">
+            <Route path="/home" component={Homepage} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/task" component={Task} />
+          </div>
         </div>
-      </div>
+      </Switch>
     </BrowserRouter>
   );
 }
