@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.comp {
+  padding: 10px;
+}
+.comp input {
+  width: 150px;
+}
+.comp button {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(240, 240, 240);
+  border: none;
+  margin: 5px;
+  font-size: 15px;
+  border-radius: 10px;
+}
+.comp button:hover {
+  background-color: rgba(107, 107, 107, 0.548);
+}

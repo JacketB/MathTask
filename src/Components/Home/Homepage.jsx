@@ -1,4 +1,9 @@
+import "../style.css";
 const Homepage = () => {
-  return <div>Homepage</div>;
+  return (
+    <div>
+      <div className="comp">Homepage</div>
+    </div>
+  );
 };
 export default Homepage;
