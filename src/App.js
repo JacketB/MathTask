@@ -14,7 +14,7 @@ function App() {
           <Header />
           <Navbar />
           <div className="content">
-            <Route path="/home" component={Homepage} />
+            <Route path="/" component={Homepage} />
             <Route path="/profile" component={Profile} />
             <Route path="/task" component={Task} />
           </div>
