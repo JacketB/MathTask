@@ -20,13 +20,7 @@ a:hover {
 }
 .wrapper {
   margin: 1%;
-  display: grid;
-  grid-template-areas:
-    "h h"
-    "n c";
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 15fr;
-  grid-gap: 10px;
+
 }
 
 .header {
@@ -45,7 +39,5 @@ a:hover {
 .header,
 .content {
   background-color: #fff;
-  border: solid;
-  border-color: rgb(116, 116, 116);
   border-radius: 10px;
 }
