@@ -8,8 +8,6 @@
   width: 150px;
 }
 .comp button {
-  width: 30px;
-  height: 30px;
   background-color: rgb(240, 240, 240);
   border: none;
   margin: 5px;
@@ -18,4 +16,10 @@
 }
 .comp button:hover {
   background-color: rgba(107, 107, 107, 0.548);
+}
+.table {
+  color: white;
+}
+.loginbg {
+  background-color: rgba(240, 240, 240, 0);
 }

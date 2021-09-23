@@ -1,7 +1,9 @@
+import Navbar from "../Navigation/Navbar";
 import "../style.css";
 const Homepage = () => {
   return (
-    <div>
+    <div className="content">
+      <Navbar />
       <div className="comp">Homepage</div>
     </div>
   );

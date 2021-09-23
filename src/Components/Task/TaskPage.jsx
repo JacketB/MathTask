@@ -1,7 +1,9 @@
+import Navbar from "../Navigation/Navbar";
 import "../style.css";
 const Task = () => {
   return (
-    <div>
+    <div className="content">
+      <Navbar />
       <div className="comp">Task page</div>
     </div>
   );
