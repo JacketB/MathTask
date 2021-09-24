@@ -4,8 +4,10 @@ import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from "react-bootstrap-table2-editor";
 import Navbar from "../Navigation/Navbar";
 import AddTask from "./AddTask";
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
+  const { t, i18n } = useTranslation();
   const collums = [
     {
       datafield: "id",
@@ -13,11 +15,11 @@ const Profile = () => {
     },
     {
       datafield: "name",
-      text: "название задачи",
+      text: t("profile.taskname"),
     },
     {
       datafield: "raiting",
-      text: "рейтинг задачи",
+      text: t("profile.raiting"),
     },
   ];
 
@@ -36,7 +38,7 @@ const Profile = () => {
             <h1 className="text-4xl">Имя</h1>
           </div>
           <div>
-            <h2 className="text-3xl">Ваши задачи</h2>
+            <h2 className="text-3xl">{t("profile.urtask")}</h2>
             <BootstrapTable
               keyField="id"
               data={products}
@@ -45,7 +47,7 @@ const Profile = () => {
               bodyClasses="table"
             />
           </div>
-          <h2 className="text-3xl">Новая задача</h2>
+          <h2 className="text-3xl">{t("profile.newtask")}</h2>
         </div>
         <div>
           <AddTask />

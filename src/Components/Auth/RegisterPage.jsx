@@ -10,13 +10,11 @@ const Register = () => {
               <label className="block font-semibold">Email</label>
               <input
                 type="text"
-                placeholder="Email"
                 className=" border w-full h-5 px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"
               />
               <label className="block mt-3 font-semibold">Пароль</label>
               <input
                 type="password"
-                placeholder="Password"
                 className=" border w-full h-5 px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"
               />
               <div className="flex justify-between items-baseline">

@@ -1,0 +1,31 @@
+{
+  "change_theme": "change theme",
+  "changelang":"language",
+  "navbar": {
+    "link1": "Home",
+    "link2": "Profile"
+  },
+  "register":{
+    "regspan": "Sing uo",
+    "regpass":"Password",
+    "regbut":"Sing up",
+    "reglink":"or sing in"
+  },
+  "login":{
+    "logspan": "Sing in",
+    "logpass":"Password",
+    "logbut":"Sing in",
+    "loglink":"or sing up"
+  },
+  "addtask":{
+    "tasktheme":"Task topic",
+    "taskcondition":"Task condition",
+    "taskbut":"Add task"
+  },
+  "profile":{
+    "urtask":"Your task",
+    "taskname":"task name",
+    "raiting":"task raiting",
+    "newtask":"New task"
+  }
+}

@@ -1,0 +1,31 @@
+{
+    "change_theme": "сменить тему",
+    "changelang":"язык",
+    "navbar": {
+      "link1": "Главная",
+      "link2": "Профиль"
+    },
+    "register":{
+      "regspan": "Зарегестрируйтесь",
+      "regpass":"Пароль",
+      "regbut":"Регистрация",
+      "reglink":"или войдите в аккаунт"
+    },
+    "login":{
+      "logspan": "Войдите в аккаунт",
+      "logpass":"Пароль",
+      "logbut":"Вход",
+      "loglink":"или создайте аккаунт"
+    },
+    "addtask":{
+      "tasktheme":"Тема задачи",
+      "taskcondition":"Условие задачи",
+      "taskbut":"Добавить задачу"
+    },
+    "profile":{
+      "urtask":"Ваши задачи",
+      "taskname":"название задачи",
+      "raiting":"рейтинг задачи",
+      "newtask":"Новая задача"
+    }
+  }

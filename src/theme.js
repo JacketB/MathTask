@@ -26,4 +26,5 @@ export const GlobalStyles = createGlobalStyle`
   transition: 1s;
   background-color: ${(props) => props.theme.body};
 }
+
 `;
