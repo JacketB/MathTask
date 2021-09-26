@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "kkllooppAq1",
+    "database": "appdata",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "kkllooppAq1",
+    "database": "appdata",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "kkllooppAq1",
+    "database": "appdata",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
