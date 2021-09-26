@@ -30,7 +30,7 @@ const Profile = () => {
     },
   ];
   return (
-    <div className="content">
+    <div className="content border-2 border-gray-500">
       <Navbar />
       <div className="m-3">
         <div className="comp">

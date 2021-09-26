@@ -17,7 +17,7 @@ export default function AddTask() {
           className="taskin border px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md content"
         />
         <div>
-          <button className="mt-2 mb-3 bg-indigo-500 text-white py-2 px-6 rounded-lg">
+          <button className="mt-2 mb-3 text-white py-2 px-6 rounded-lg">
             {t("addtask.taskbut")}
           </button>
         </div>
