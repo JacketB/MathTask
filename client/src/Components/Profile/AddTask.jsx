@@ -1,27 +1,96 @@
 import { useTranslation } from "react-i18next";
+import { Form, Formik, Field, ErrorMessage } from "formik";
+import "../style.css";
+import * as Yup from "yup";
+import axios from "axios";
 export default function AddTask() {
   const { t, i18n } = useTranslation();
+  const initialValues = {
+    title: "",
+    taskTopic: "",
+    taskCondition: "",
+    taskAuthor: "",
+  };
+
+  const validation = Yup.object({
+    title: Yup.string().required("error"),
+    taskTopic: Yup.string().required(),
+    taskCondition: Yup.string().required(),
+    taskAuthor: Yup.string().min(3).max(15).required(),
+  });
+
+  const onSubmit = (data) => {
+    axios.post("http://localhost:3001/tasks", data).then(() => {
+      alert("Task created!");
+      document.getElementById("addTask").reset();
+    });
+  };
   return (
     <div className="m-2.5">
-      <form action="">
-        <div className="text-2xl">{t("addtask.tasktheme")}</div>
-        <div>
-          <input
-            type="text"
-            className=" border h-5 px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md content"
-          />
-        </div>
-        <div className="text-2xl">{t("addtask.taskcondition")}</div>
-        <textarea
-          type="text"
-          className="taskin border px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md content"
-        />
-        <div>
-          <button className="mt-2 mb-3 text-white py-2 px-6 rounded-lg">
-            {t("addtask.taskbut")}
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validation}
+      >
+        <Form id="addTask">
+          <div className="mb-2">
+            <div className="text-xl">title</div>
+            <ErrorMessage
+              name="title"
+              component="div"
+              className="text-red-700"
+            />
+            <Field
+              id="inputCreateTask"
+              name="title"
+              className="py-2 text-black"
+            />
+          </div>
+          <div className="mb-2">
+            <div className="text-xl">topic</div>
+            <ErrorMessage
+              name="taskTopic"
+              component="div"
+              className="text-red-700"
+            />
+            <Field
+              id="inputCreateTask"
+              name="taskTopic"
+              className="py-2 text-black"
+            />
+          </div>
+          <div className="mb-3">
+            <div className="text-xl">condition</div>
+            <ErrorMessage
+              name="taskCondition"
+              component="div"
+              className="text-red-700"
+            />
+            <Field
+              as="textarea"
+              id="inputCreateTask"
+              name="taskCondition"
+              className="py-2 text-black"
+            />
+          </div>
+          <div>
+            <div className="text-xl">author</div>
+            <ErrorMessage
+              name="taskAuthor"
+              component="div"
+              className="text-red-700"
+            />
+            <Field
+              id="inputCreateTask"
+              name="taskAuthor"
+              className="py-2 text-black"
+            />
+          </div>
+          <button type="submit" className="text-white py-2 px-6 rounded-lg">
+            Create task
           </button>
-        </div>
-      </form>
+        </Form>
+      </Formik>
     </div>
   );
 }

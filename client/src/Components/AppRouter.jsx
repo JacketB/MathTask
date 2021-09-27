@@ -10,7 +10,7 @@ export default function AppRouter() {
       <Switch>
         <Route path="/" exact={true} component={Homepage} />
         <Route path="/profile" component={Profile} />
-        <Route path="/task" component={Task} />
+        <Route path="/task/:id" component={Task} />
         <Route path="/login" component={Login} />
       </Switch>
     </BrowserRouter>

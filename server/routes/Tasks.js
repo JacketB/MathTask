@@ -7,6 +7,12 @@ router.get("/", async (req, res) => {
   res.json(listOfPosts);
 });
 
+router.get("/byId/:id", async (req, res) => {
+  const id = req.params.id;
+  const task = await Tasks.findByPk(id);
+  res.json(task);
+});
+
 router.post("/", async (req, res) => {
   const post = req.body;
   await Tasks.create(post);
