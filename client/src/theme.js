@@ -15,6 +15,10 @@ export const darkTheme = {
 };
 
 export const GlobalStyles = createGlobalStyle`
+.reg{
+  transition:1s;
+  color: ${(props) => props.theme.fontColor}
+}
 .dropdown-content{
   background-color:${(props) => props.theme.but};
 }
