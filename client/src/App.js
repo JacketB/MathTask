@@ -7,6 +7,8 @@ import "./Components/changelanguage/dropdown.css";
 import Dropdown from "./Components/changelanguage/dropdown";
 import { useDarkMode } from "./Components/Togle/useDarkMode";
 import Toggle from "./Components/Togle/Togler";
+import AuthBut from "./Components/Auth/AuthButs";
+import { Link } from "react-router-dom";
 function App() {
   const [theme, themeToggler, mountedComponent] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;

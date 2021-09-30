@@ -14,7 +14,7 @@ export default function Task() {
       {listOfPosts.map((value, key) => {
         return (
           <div
-            className="p-2 border-2 border-gray-500 rounded m-3"
+            className="task p-2 border-2 border-gray-500 rounded m-3"
             onClick={() => {
               history.push(`/task/${value.id}`);
             }}

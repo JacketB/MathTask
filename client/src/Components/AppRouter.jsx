@@ -3,6 +3,7 @@ import Profile from "./Profile/Profile";
 import Homepage from "./Home/Homepage";
 import Task from "./Task/TaskPage";
 import Login from "./Auth/LoginPage";
+import Register from "./Auth/RegisterPage";
 
 export default function AppRouter() {
   return (
@@ -12,6 +13,7 @@ export default function AppRouter() {
         <Route path="/profile" component={Profile} />
         <Route path="/task/:id" component={Task} />
         <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
       </Switch>
     </BrowserRouter>
   );

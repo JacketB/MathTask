@@ -2,12 +2,14 @@ import { createGlobalStyle } from "styled-components";
 
 export const lightTheme = {
   body: "#f2f2f2",
+  comment: "#bbbbbb",
   fontColor: "black",
   but: "#5098eb",
 };
 
 export const darkTheme = {
   body: "#292928",
+  comment: "#535353",
   fontColor: "white",
   but: "#4717f6",
 };
@@ -35,5 +37,9 @@ button{
 .taskin{
   background-color: ${(props) => props.theme.body};
 }
-
+.comment{
+  transition:1s;
+  background-color: ${(props) => props.theme.comment};
+  color: ${(props) => props.theme.fontColor}
+}
 `;
