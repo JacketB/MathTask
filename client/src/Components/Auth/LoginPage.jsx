@@ -1,24 +1,20 @@
 import "../style.css";
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
-import * as Yup from "yup";
+import { useHistory } from "react-router";
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const initialValues = {
-    username: "",
-    password: "",
-  };
-
-  const validation = Yup.object({
-    username: Yup.string().required(),
-    password: Yup.string().required(),
-  });
+  let history = useHistory();
   const login = () => {
     const data = { username: username, password: password };
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
-      console.log(response.data);
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        localStorage.setItem("accessToken", response.data);
+        history.push("/");
+      }
     });
   };
   return (

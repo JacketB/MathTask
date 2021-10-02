@@ -11,14 +11,29 @@ export default function Task() {
   const [newComment, setNewComment] = useState("");
   const addComment = () => {
     axios
-      .post("http://localhost:3001/comments", {
-        commentBody: newComment,
-        TaskId: id,
-      })
+      .post(
+        "http://localhost:3001/comments",
+        {
+          commentBody: newComment,
+          TaskId: id,
+        },
+        {
+          headers: {
+            accessToken: sessionStorage.getItem("accessToken"),
+          },
+        }
+      )
       .then((response) => {
-        const commentToAdd = { commentBody: newComment };
-        setComments([...comments, commentToAdd]);
-        setNewComment("");
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          const commentToAdd = {
+            commentBody: newComment,
+            username: response.data.username,
+          };
+          setComments([...comments, commentToAdd]);
+          setNewComment("");
+        }
       });
   };
   useEffect(() => {
@@ -65,6 +80,7 @@ export default function Task() {
           {comments.map((comment, key) => {
             return (
               <div className="p-2 bg-gray-700 my-2.5 w-5/6 rounded comment">
+                <div className="underline font-bold">{comment.username}</div>
                 {comment.commentBody}
               </div>
             );
