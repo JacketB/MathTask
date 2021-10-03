@@ -9,14 +9,13 @@ export default function AddTask() {
     title: "",
     taskTopic: "",
     taskCondition: "",
-    taskAuthor: "",
+    taskAuthor: localStorage.getItem("username"),
   };
 
   const validation = Yup.object({
     title: Yup.string().required("error"),
     taskTopic: Yup.string().required(),
     taskCondition: Yup.string().required(),
-    taskAuthor: Yup.string().min(3).max(15).required(),
   });
 
   const onSubmit = (data) => {
@@ -73,19 +72,7 @@ export default function AddTask() {
               className="py-2 text-black"
             />
           </div>
-          <div>
-            <div className="text-xl">author</div>
-            <ErrorMessage
-              name="taskAuthor"
-              component="div"
-              className="text-red-700"
-            />
-            <Field
-              id="inputCreateTask"
-              name="taskAuthor"
-              className="py-2 text-black"
-            />
-          </div>
+
           <button type="submit" className="text-white py-2 px-6 rounded-lg">
             Create task
           </button>

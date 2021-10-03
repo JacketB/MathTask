@@ -10,8 +10,9 @@ const Login = () => {
     const data = { username: username, password: password };
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
       if (response.data.error) {
-        alert(response.data.error);
+        alert("error");
       } else {
+        localStorage.setItem("username", username);
         localStorage.setItem("accessToken", response.data);
         history.push("/");
       }

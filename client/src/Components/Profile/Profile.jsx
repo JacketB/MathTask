@@ -35,7 +35,7 @@ const Profile = () => {
       <div className="m-3">
         <div className="comp">
           <div>
-            <h1 className="text-4xl">Имя</h1>
+            <h1 className="text-4xl">{localStorage.getItem("username")}</h1>
           </div>
           <div>
             <h2 className="text-3xl">{t("profile.urtask")}</h2>

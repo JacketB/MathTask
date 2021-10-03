@@ -19,7 +19,7 @@ export default function Task() {
         },
         {
           headers: {
-            accessToken: sessionStorage.getItem("accessToken"),
+            accessToken: localStorage.getItem("accessToken"),
           },
         }
       )
