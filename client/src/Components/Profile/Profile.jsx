@@ -8,27 +8,7 @@ import { useTranslation } from "react-i18next";
 
 const Profile = () => {
   const { t, i18n } = useTranslation();
-  const collums = [
-    {
-      datafield: "id",
-      text: "id",
-    },
-    {
-      datafield: "name",
-      text: t("profile.taskname"),
-    },
-    {
-      datafield: "raiting",
-      text: t("profile.raiting"),
-    },
-  ];
 
-  const products = [
-    {
-      id: 1,
-      name: "aaa",
-    },
-  ];
   return (
     <div className="content border-2 border-gray-500">
       <Navbar />
@@ -39,13 +19,6 @@ const Profile = () => {
           </div>
           <div>
             <h2 className="text-3xl">{t("profile.urtask")}</h2>
-            <BootstrapTable
-              keyField="id"
-              data={products}
-              columns={collums}
-              cellEdit={cellEditFactory({ mode: "click" })}
-              bodyClasses="table"
-            />
           </div>
           <h2 className="text-3xl">{t("profile.newtask")}</h2>
         </div>
