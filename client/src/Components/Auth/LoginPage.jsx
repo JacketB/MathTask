@@ -1,25 +1,39 @@
 import "../style.css";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { AuthContext } from "../AuthContext";
+import { Link } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const { setAuthState } = useContext(AuthContext);
   let history = useHistory();
   const login = () => {
     const data = { username: username, password: password };
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
       if (response.data.error) {
-        alert("error");
+        alert(response.data.error);
       } else {
-        localStorage.setItem("username", username);
-        localStorage.setItem("accessToken", response.data);
-        history.push("/");
+        localStorage.setItem("accessToken", response.data.token);
+        localStorage.setItem("userId", response.data.id);
+        localStorage.setItem("userName", response.data.username);
+        setAuthState({
+          username: response.data.username,
+          id: response.data.id,
+          status: true,
+        });
+        if (response.data.username == "admin") {
+          history.push("/admin");
+        } else history.push("/");
       }
     });
   };
   return (
     <div>
+      <div className="reg">
+        <Link to="/">На главную</Link>
+      </div>
       <div className="  text-gray-800 antialiased px-4 py-6 flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl mx-auto text-center">
           <span className="text-2xl font-light reg">Войдите в аккаунт</span>
@@ -50,9 +64,10 @@ const Login = () => {
                 >
                   Вход
                 </button>
-                <a className="px-3 text-sm hover:underline">
+
+                <Link className="px-3 text-sm hover:underline" to="/register">
                   или создайте аккаунт
-                </a>
+                </Link>
               </div>
             </div>
           </div>

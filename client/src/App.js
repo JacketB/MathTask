@@ -19,7 +19,7 @@ function App() {
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <ThemeProvider theme={themeMode}>
         <GlobalStyles />
-        <div className="header m-3 p-2  border-2 border-gray-500">
+        <div className="header m-3 p-2">
           <Toggle theme={theme} toggleTheme={themeToggler} />
           <Dropdown />
         </div>

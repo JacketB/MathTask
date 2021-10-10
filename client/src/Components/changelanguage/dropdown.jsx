@@ -9,7 +9,9 @@ export default function Dropdown() {
 
   return (
     <div className="dropdown mx-3">
-      <button className="dropbtn text-white py-2 px-6 rounded-lg">Язык</button>
+      <button className="dropbtn text-white py-2 px-6 rounded-lg">
+        {t("changelang")}
+      </button>
       <div className="dropdown-content">
         <div>
           <button onClick={() => changeLanguage("ru")}>Рус</button>

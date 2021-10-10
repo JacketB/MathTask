@@ -1,22 +1,26 @@
-import React, { useEffect, useContext } from "react";
+import Navbar from "../Navigation/Navbar";
+import "../style.css";
+import { useParams, useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { Form, Formik, Field, ErrorMessage } from "formik";
-import { useHistory } from "react-router-dom";
+import { Form, Formik, Field, ErrorMessage, isString } from "formik";
 import * as Yup from "yup";
-import AddImage from "./AddImage";
-import { NewTask } from "../DatabaseQueries/Querie";
-export default function AddTask() {
+export default function UpdateTask() {
   let history = useHistory();
+  let id = useParams();
+  const [taskObject, setTaskObject] = useState({});
   const initialValues = {
     title: "",
     taskTopic: "",
     taskCondition: "",
+    id: `${id.id}`,
   };
-
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      history.push("/login");
-    }
+    console.log(id.id);
+    axios.get(`http://localhost:3001/tasks/byId/${id.id}`).then((response) => {
+      setTaskObject(response.data);
+    });
   }, []);
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("You must input a Title!"),
@@ -24,16 +28,32 @@ export default function AddTask() {
     taskCondition: Yup.string().required(),
   });
   const onSubmit = (data) => {
-    NewTask(data);
+    axios
+      .put(
+        "http://localhost:3001/tasks/updated",
+        {
+          newTitle: data.title,
+          newTopic: data.taskTopic,
+          newCondition: data.taskCondition,
+          id: id,
+        },
+        {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      });
   };
   return (
-    <div className="m-2.5">
+    <div className="content border-2 border-gray-500 pb-3">
+      <Navbar />
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <Form id="addTask">
+        <Form id="updateTask" className="px-2">
           <div className="mb-2">
             <div className="text-xl">title</div>
             <ErrorMessage
@@ -42,9 +62,11 @@ export default function AddTask() {
               className="text-red-700"
             />
             <Field
-              id="inputCreateTask"
+              type="text"
+              id="inputUpdateTask"
               name="title"
               className="py-2 text-black"
+              placeholder={taskObject.title}
             />
           </div>
           <div className="mb-2">
@@ -55,9 +77,10 @@ export default function AddTask() {
               className="text-red-700"
             />
             <Field
-              id="inputCreateTask"
+              id="inputUpdateTask"
               name="taskTopic"
               className="py-2 text-black"
+              placeholder={taskObject.taskTopic}
             />
           </div>
           <div className="mb-3">
@@ -69,17 +92,17 @@ export default function AddTask() {
             />
             <Field
               as="textarea"
-              id="inputCreateTask"
+              id="inputUpdateTask"
               name="taskCondition"
-              className="py-2 text-black"
+              placeholder={taskObject.taskCondition}
+              className="py-2 text-black w-1/2 h-28"
             />
           </div>
           <button type="submit" className="text-white py-2 px-6 rounded-lg">
-            Create task
+            Update task
           </button>
         </Form>
       </Formik>
-      <AddImage />
     </div>
   );
 }

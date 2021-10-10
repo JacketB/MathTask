@@ -11,6 +11,10 @@ const commentsRouter = require("./routes/Comments");
 app.use("/comments", commentsRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
+const usersListRouter = require("./routes/Users");
+app.use("/list", usersListRouter);
+const imagesRouter = require("./routes/Images");
+app.use("/images", imagesRouter);
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {
     console.log("Server start on port 3001");

@@ -1,18 +1,12 @@
+import { GetLastTasks } from "../DatabaseQueries/Querie";
 import Navbar from "../Navigation/Navbar";
 import "../style.css";
-import Task from "./Task";
-import Tags from "./Tags";
-import { AuthContext } from "../AuthContext";
+import LastTasksTable from "./LastTasksTable";
 const Homepage = () => {
   return (
     <div className="content border-2 border-gray-500">
       <Navbar />
-      <div>
-        <Tags />
-        <div id="task">
-          <Task />
-        </div>
-      </div>
+      <LastTasksTable />
     </div>
   );
 };

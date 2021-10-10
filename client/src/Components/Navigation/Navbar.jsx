@@ -1,41 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../style.css";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import axios from "axios";
 const Navbar = () => {
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/auth/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((response) => {
-        setAuthState({
-          username: response.data.usernme,
-          status: true,
-        });
-      });
-  });
+  let history = useHistory();
   const { t, i18n } = useTranslation();
   const logout = () => {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
   };
-  const [authState, setAuthState] = useState({
-    username: "",
-    status: false,
-  });
   return (
-    <div className="nav p-3 shadow-lg   border-b-2 border-gray-500">
+    <div className="nav p-3 shadow-lg   border-b-2 border-gray-500 flex justify-between">
       <div>
         <span className="nav-item py-3">
           <Link className="hover:text-white" to="/">
             {t("navbar.link1")}
           </Link>
         </span>
-
+        <span className="nav-item py-3">
+          <Link className="hover:text-white" to="/allTasks">
+            Задачи
+          </Link>
+        </span>
         {!localStorage.getItem("accessToken") ? (
           <>
             <Link to="/login">login</Link>
@@ -44,18 +30,24 @@ const Navbar = () => {
         ) : (
           <>
             <span className="nav-item py-3">
-              <Link className="hover:text-white" to="/profile">
+              <span
+                className="hover:text-white cursor-pointer"
+                onClick={() => {
+                  history.push(`/profile/${localStorage.getItem("userId")}`);
+                }}
+              >
                 {t("navbar.link2")}
+              </span>
+            </span>
+            <span className="nav-item py-3">
+              <Link to="/login" onClick={logout}>
+                logout
               </Link>
             </span>
-            <Link to="/login" onClick={logout}>
-              logout
-            </Link>
-            <span>{localStorage.getItem("username")}</span>
           </>
         )}
-        <span>{authState.username}</span>
       </div>
+      <div className="inline px-6">{localStorage.getItem("userName")}</div>
     </div>
   );
 };
