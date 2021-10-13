@@ -9,6 +9,7 @@ export default function LastTasksTable() {
   ];
   return (
     <div className="p-8">
+      <h2 className="mb-3">Последние задачи</h2>
       <BootstrapTable
         keyField="id"
         data={GetAllTasks().slice(-5)}

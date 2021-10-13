@@ -18,6 +18,18 @@ module.exports = (sequlize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    answer1: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    answer2: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    answer3: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
   Tasks.associate = (models) => {
     Tasks.hasMany(models.Comments, {

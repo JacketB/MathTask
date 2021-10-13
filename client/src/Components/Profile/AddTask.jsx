@@ -4,13 +4,17 @@ import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import AddImage from "./AddImage";
-import { NewTask } from "../DatabaseQueries/Querie";
+import axios from "axios";
+import { GetImages } from "../DatabaseQueries/Querie";
 export default function AddTask() {
   let history = useHistory();
   const initialValues = {
     title: "",
     taskTopic: "",
     taskCondition: "",
+    answer1: "",
+    answer2: "",
+    answer3: "",
   };
 
   useEffect(() => {
@@ -22,9 +26,20 @@ export default function AddTask() {
     title: Yup.string().required("You must input a Title!"),
     taskTopic: Yup.string().required(),
     taskCondition: Yup.string().required(),
+    answer1: Yup.string().required(),
+    answer2: Yup.string().required(),
+    answer3: Yup.string().required(),
   });
   const onSubmit = (data) => {
-    NewTask(data);
+    axios
+      .post("http://localhost:3001/tasks", data, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(() => {
+        history.push("/");
+      });
+    let images = GetImages().join("+++");
+    console.log(images);
   };
   return (
     <div className="m-2.5">
@@ -44,7 +59,7 @@ export default function AddTask() {
             <Field
               id="inputCreateTask"
               name="title"
-              className="py-2 text-black"
+              className="p-1 text-black w-2/3"
             />
           </div>
           <div className="mb-2">
@@ -57,7 +72,7 @@ export default function AddTask() {
             <Field
               id="inputCreateTask"
               name="taskTopic"
-              className="py-2 text-black"
+              className="p-1 text-black w-2/3"
             />
           </div>
           <div className="mb-3">
@@ -71,15 +86,57 @@ export default function AddTask() {
               as="textarea"
               id="inputCreateTask"
               name="taskCondition"
-              className="py-2 text-black"
+              className="p-1 text-black h-28 w-2/3"
+            />
+            <div>
+              <h4>Добавьте ответы к задаче</h4>
+              <h5>Внимание! Все ответы должны быть правильными!</h5>
+            </div>
+            <p>Ответ 1</p>
+            <ErrorMessage
+              name="answer1"
+              component="div"
+              className="text-red-700"
+            />
+            <Field
+              as="textarea"
+              id="inputCreateTask"
+              name="answer1"
+              className="p-1 text-black h-28 w-2/3"
+            />
+            <div />
+            <p>Ответ 2</p>
+            <ErrorMessage
+              name="answer2"
+              component="div"
+              className="text-red-700"
+            />
+            <Field
+              as="textarea"
+              id="inputCreateTask"
+              name="answer2"
+              className="p-1 text-black h-28 w-2/3"
+            />
+            <div />
+            <p>Ответ 3</p>
+            <ErrorMessage
+              name="answer3"
+              component="div"
+              className="text-red-700"
+            />
+            <Field
+              as="textarea"
+              id="inputCreateTask"
+              name="answer3"
+              className="p-1 text-black h-28 w-2/3"
             />
           </div>
+          <AddImage />
           <button type="submit" className="text-white py-2 px-6 rounded-lg">
             Create task
           </button>
         </Form>
       </Formik>
-      <AddImage />
     </div>
   );
 }

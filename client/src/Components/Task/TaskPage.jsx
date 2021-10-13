@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
+import Rate from "./Rate";
+import CheckAnswer from "./CheckAnswer";
+import AverageRating from "./AverageRating";
 export default function Task() {
   const { t, i18n } = useTranslation();
   const [comments, setComments] = useState([]);
   const [postObject, setPostObject] = useState({});
   const [newComment, setNewComment] = useState("");
+  const [ratings, setRatings] = useState([]);
   const addComment = () => {
     axios
       .post(
@@ -44,6 +48,9 @@ export default function Task() {
     axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
       setComments(response.data);
     });
+    axios.get(`http://localhost:3001/rate/${id}`).then((response) => {
+      setRatings(response.data);
+    });
   }, []);
   let { id } = useParams();
   let history = useHistory();
@@ -56,10 +63,21 @@ export default function Task() {
           <ReactMarkdown className="border-gray-500 border-2 rounded w-2/3 p-2 mb-2">
             {postObject.taskCondition}
           </ReactMarkdown>
-
+          <AverageRating ratings={ratings} />
+          <CheckAnswer
+            answer1={postObject.answer1}
+            answer2={postObject.answer2}
+            answer3={postObject.answer3}
+          />
           <span className="text-sm">
+            Created <p>{postObject.createdAt}</p>
             {t("author")} : {postObject.username}
           </span>
+
+          <div className="mb-3">
+            <span>Оцените задачу:</span>
+            <Rate />
+          </div>
           {localStorage.getItem("userName") == postObject.username ? (
             <div>
               <button
@@ -79,25 +97,27 @@ export default function Task() {
         {!localStorage.getItem("accessToken") ? (
           <></>
         ) : (
-          <div className="flex items-start">
-            <textarea
-              cols="200"
-              rows="5"
-              className="text-black min-h-full rounded"
-              type="text"
-              autoComplete="off"
-              value={newComment}
-              onChange={(event) => {
-                setNewComment(event.target.value);
-              }}
-            />
-            <button
-              id="btn"
-              className="mx-2 p-2 rounded text-white"
-              onClick={addComment}
-            >
-              Add Comment
-            </button>
+          <div>
+            <div className="flex items-start">
+              <textarea
+                cols="200"
+                rows="5"
+                className="text-black min-h-full rounded"
+                type="text"
+                autoComplete="off"
+                value={newComment}
+                onChange={(event) => {
+                  setNewComment(event.target.value);
+                }}
+              />
+              <button
+                id="btn"
+                className="mx-2 p-2 rounded text-white"
+                onClick={addComment}
+              >
+                Add Comment
+              </button>
+            </div>
           </div>
         )}
 

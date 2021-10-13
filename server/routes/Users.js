@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
       email: email,
       password: hash,
     });
-    res.json("SUCCESS");
+    res.json(req.body);
   });
 });
 

@@ -1,46 +1,60 @@
 import axios from "axios";
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { useState } from "react";
+import { AddNewImage, GetImages } from "../DatabaseQueries/Querie";
+const AddImage = () => {
+  const [drag, setDrag] = useState(false);
+  function dragStartHandler(e) {
+    e.preventDefault();
+    setDrag(true);
+  }
 
-export default function AddImage() {
-  var images = [];
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((element) => {
-      images.push(element.path);
+  function dragLeaveHandler(e) {
+    e.preventDefault();
+    setDrag(false);
+  }
+
+  function onDropHandler(e) {
+    e.preventDefault();
+    let addedfiles = [...e.dataTransfer.files];
+    const body = new FormData();
+    addedfiles.forEach((file) => {
+      body.append("image", file);
+      axios
+        .post(
+          "https://api.imgbb.com/1/upload?key=ef809e6ad9bad4950ea87fe71e5f92a1",
+          body
+        )
+        .then((response) => {
+          console.log(response.data.data.url);
+        });
     });
-  }, []);
 
-  const AddImages = () => {
-    console.log(images);
-    /*axios
-      .post(
-        "http://localhost:3001/images",
-        {
-          pathToImage: todb,
-          TaskId: localStorage.getItem("userId"),
-        },
-        {
-          headers: {
-            accessToken: localStorage.getItem("accessToken"),
-          },
-        }
-      )
-      .then((response) => {
-        console.log("added");
-      });*/
-  };
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+    setDrag(false);
+  }
   return (
-    <div className="p-6">
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
+    <div>
+      Загрузите изображения:
+      <div className="p-2 mb-3 mt-1 text-xl text-white w-1/5 bg-gray-500 rounded">
+        {drag ? (
+          <div
+            onDragStart={(e) => dragStartHandler(e)}
+            onDragLeave={(e) => dragLeaveHandler(e)}
+            onDragOver={(e) => dragStartHandler(e)}
+            onDrop={(e) => onDropHandler(e)}
+          >
+            Отпутстите файлы для отправки на сервер
+          </div>
         ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <div
+            onDragStart={(e) => dragStartHandler(e)}
+            onDragLeave={(e) => dragLeaveHandler(e)}
+            onDragOver={(e) => dragStartHandler(e)}
+          >
+            Перенесите один или несколько файлов для отправки
+          </div>
         )}
       </div>
-      <button onClick={AddImages()}>Add images</button>
     </div>
   );
-}
+};
+export default AddImage;
