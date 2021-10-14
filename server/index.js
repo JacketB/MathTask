@@ -15,9 +15,6 @@ app.use("/auth", usersRouter);
 const usersListRouter = require("./routes/Users");
 app.use("/list", usersListRouter);
 
-const imagesRouter = require("./routes/Images");
-app.use("/images", imagesRouter);
-
 const ratingRouter = require("./routes/Ratings");
 app.use("/rate", ratingRouter);
 

@@ -25,7 +25,8 @@ const AddImage = () => {
           body
         )
         .then((response) => {
-          console.log(response.data.data.url);
+          AddNewImage(response.data.data.url);
+          console.log(GetImages());
         });
     });
 

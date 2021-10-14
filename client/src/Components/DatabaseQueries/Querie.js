@@ -7,7 +7,6 @@ export const AddNewImage = (image) => {
   images.push(image);
 };
 export const GetImages = () => {
-  console.log(images);
   return images;
 };
 axios.get("http://localhost:3001/tasks").then((response) => {

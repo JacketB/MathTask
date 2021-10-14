@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import AddImage from "./AddImage";
 import axios from "axios";
 import { GetImages } from "../DatabaseQueries/Querie";
+import Tags from "@yaireo/tagify/dist/react.tagify";
 export default function AddTask() {
   let history = useHistory();
   const initialValues = {
@@ -31,15 +32,17 @@ export default function AddTask() {
     answer3: Yup.string().required(),
   });
   const onSubmit = (data) => {
+    data.image1 = GetImages()[0];
+    data.image2 = GetImages()[1];
+    data.image3 = GetImages()[2];
+    console.log(data);
     axios
       .post("http://localhost:3001/tasks", data, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
-      .then(() => {
-        history.push("/");
+      .then((response) => {
+        console.log(response);
       });
-    let images = GetImages().join("+++");
-    console.log(images);
   };
   return (
     <div className="m-2.5">

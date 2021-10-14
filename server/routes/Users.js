@@ -12,14 +12,21 @@ router.get("/list", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { username, password, email } = req.body;
-  bcrypt.hash(password, 10).then((hash) => {
-    Users.create({
-      username: username,
-      email: email,
-      password: hash,
-    });
-    res.json(req.body);
+  const found = await Users.findOne({
+    where: { username: username, email: email },
   });
+  if (!found) {
+    bcrypt.hash(password, 10).then((hash) => {
+      Users.create({
+        username: username,
+        email: email,
+        password: hash,
+      });
+      res.json(req.body);
+    });
+  } else {
+    res.json({ error: "User has registered" });
+  }
 });
 
 router.post("/login", async (req, res) => {
@@ -41,8 +48,9 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/auth", (req, res) => {
-  res.json(req.user);
+  res.json(req.user.username);
 });
+
 router.get("/basicinfo/:id", async (req, res) => {
   const id = req.params.id;
 

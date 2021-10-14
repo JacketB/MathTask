@@ -1,19 +1,18 @@
-import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useHistory } from "react-router";
-export default function LoginWithGoogle() {
+export default function LoginWithFacebook() {
   const { setAuthState } = useContext(AuthContext);
   const history = useHistory();
-  const responseGoogle = (response) => {
-    console.log(response);
+  const responseFacebook = (response) => {
     LogIn(response);
   };
   const LogIn = (data) => {
-    const username = data.it.Re;
-    const email = data.it.Tt;
-    const password = data.it.sT;
+    const username = data.name;
+    const password = data.id;
+    const email = data.email;
     axios
       .post("http://localhost:3001/auth", { username, password, email })
       .then(() => {
@@ -37,14 +36,13 @@ export default function LoginWithGoogle() {
       });
   };
   return (
-    <div>
-      <GoogleLogin
-        clientId="491733085744-kgfk2529a557qgpebuhrnkgn0svb8p1i.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={"single_host_origin"}
-      />
-    </div>
+    <FacebookLogin
+      appId="387334999406825"
+      autoLoad={false}
+      fields="name,email"
+      callback={responseFacebook}
+      cssClass=""
+      callback={responseFacebook}
+    />
   );
 }

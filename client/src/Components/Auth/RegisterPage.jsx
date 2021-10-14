@@ -5,6 +5,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import { useHistory } from "react-router";
+import FacebookLogin from "./FacebookLogin";
+import LoginWithFacebook from "./FacebookLogin";
+import LoginWithGoogle from "./GoogleLogin";
 const Register = () => {
   const initialValues = {
     username: "",
@@ -64,6 +67,8 @@ const Register = () => {
                     <Link to="/login" className="px-3 text-sm hover:underline">
                       или войдите в аккаунт
                     </Link>
+                    <LoginWithFacebook />
+                    <LoginWithGoogle />
                   </div>
                 </div>
               </div>

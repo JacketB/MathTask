@@ -8,12 +8,14 @@ import ReactMarkdown from "react-markdown";
 import Rate from "./Rate";
 import CheckAnswer from "./CheckAnswer";
 import AverageRating from "./AverageRating";
+import Images from "./Images";
 export default function Task() {
   const { t, i18n } = useTranslation();
   const [comments, setComments] = useState([]);
   const [postObject, setPostObject] = useState({});
   const [newComment, setNewComment] = useState("");
   const [ratings, setRatings] = useState([]);
+  const [images, setImages] = useState([]);
   const addComment = () => {
     axios
       .post(
@@ -41,6 +43,7 @@ export default function Task() {
         }
       });
   };
+
   useEffect(() => {
     axios.get(`http://localhost:3001/tasks/byId/${id}`).then((response) => {
       setPostObject(response.data);
@@ -52,6 +55,7 @@ export default function Task() {
       setRatings(response.data);
     });
   }, []);
+
   let { id } = useParams();
   let history = useHistory();
   return (
@@ -63,6 +67,11 @@ export default function Task() {
           <ReactMarkdown className="border-gray-500 border-2 rounded w-2/3 p-2 mb-2">
             {postObject.taskCondition}
           </ReactMarkdown>
+          <Images
+            img1={postObject.image1}
+            img2={postObject.image2}
+            img3={postObject.image3}
+          />
           <AverageRating ratings={ratings} />
           <CheckAnswer
             answer1={postObject.answer1}

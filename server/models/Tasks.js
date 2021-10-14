@@ -1,5 +1,3 @@
-const Images = require("./Images");
-
 module.exports = (sequlize, DataTypes) => {
   const Tasks = sequlize.define("Tasks", {
     title: {
@@ -30,12 +28,21 @@ module.exports = (sequlize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    image1: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    image2: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    image3: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   });
   Tasks.associate = (models) => {
     Tasks.hasMany(models.Comments, {
-      onDelete: "cascade",
-    });
-    Tasks.hasMany(models.Images, {
       onDelete: "cascade",
     });
   };

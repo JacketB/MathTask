@@ -1,26 +1,21 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { GetAllTasks } from "../DatabaseQueries/Querie";
 
+import axios from "axios";
 export default function Task() {
   const { t, i18n } = useTranslation();
   const [Search, setSearch] = useState("");
   const [listOfTasks, setListOfTasks] = useState([]);
   let history = useHistory();
   useEffect(() => {
-    setListOfTasks(GetAllTasks());
+    axios.get("http://localhost:3001/tasks").then((response) => {
+      setListOfTasks(response.data.listOfTasks);
+    });
   }, []);
 
   return (
     <div>
-      <div className="bg-gray-500 w-1/4 mx-auto my-3 rounded ">
-        <div className="bg-gray-600 rounded-b flex justify-center">
-          <button className="p-1 m-1.5 bg-gray-700 rounded">
-            очистить фильтр
-          </button>
-        </div>
-      </div>
       <div className="flex justify-center ">
         <input
           className="w-1/2 border h-5 px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"
