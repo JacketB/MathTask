@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { useContext } from "react";
 import axios from "axios";
+import { URL } from "../DatabaseQueries/Querie";
+import { TasksContext } from "../TasksContext";
 export default function Task() {
+  const { tasksState, setTasksState } = useContext(TasksContext);
   const { t, i18n } = useTranslation();
   const [Search, setSearch] = useState("");
-  const [listOfTasks, setListOfTasks] = useState([]);
   let history = useHistory();
   useEffect(() => {
-    axios.get("http://localhost:3001/tasks").then((response) => {
-      setListOfTasks(response.data.listOfTasks);
+    axios.get(`${URL}/tasks`).then((response) => {
+      setTasksState(response.data.listOfTasks);
     });
   }, []);
 
@@ -18,7 +20,7 @@ export default function Task() {
     <div>
       <div className="flex justify-center ">
         <input
-          className="w-1/2 border h-5 px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md"
+          className="w-1/2 border h-5 px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md text-black"
           placeholder={t("search")}
           type="text"
           onChange={(event) => {
@@ -27,12 +29,13 @@ export default function Task() {
         />
       </div>
 
-      {listOfTasks
+      {tasksState
         .filter((value) => {
           if (Search == "") return value;
           else if (
             value.taskCondition.toLowerCase().includes(Search.toLowerCase()) ||
-            value.title.toLowerCase().includes(Search.toLowerCase())
+            value.title.toLowerCase().includes(Search.toLowerCase()) ||
+            value.taskTopic.toLowerCase().includes(Search.toLowerCase())
           ) {
             return value;
           }

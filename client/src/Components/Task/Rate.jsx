@@ -1,22 +1,43 @@
 import "./Rate.css";
+import toast from "react-hot-toast";
 import { useParams } from "react-router";
-import { NewRate } from "../DatabaseQueries/Querie";
+import { NewRate, URL } from "../DatabaseQueries/Querie";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { TasksContext } from "../TasksContext";
 export default function Rate() {
   const [grade, setGrade] = useState();
+  const { setTasksState } = useContext(TasksContext);
   let id = useParams();
   const check = () => {
-    alert("ваша оценка - " + grade);
-    SetGrade();
+    toast.success("ваша оценка - " + grade);
+    Setgrade();
   };
-  const SetGrade = () => {
+  const Setgrade = () => {
     axios
-      .post(`http://localhost:3001/rate/byId/${id.id}/grade/${grade}`, grade, {
+      .post(`${URL}/rate/byId/${id.id}/grade/${grade}`, grade, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
-        alert("added");
+        axios.get(`${URL}/rate/${id.id}`).then((response) => {
+          let ratings = response.data;
+          let average = 0;
+          ratings.forEach((element) => {
+            average += element.taskGrade;
+          });
+          average += grade;
+          average = average / (ratings.length + 1).toFixed(1);
+          axios
+            .put(`${URL}/tasks/average/${id.id}/${average}`, {
+              average: average,
+            })
+            .then(() => {
+              axios.get(`${URL}/tasks`).then((response) => {
+                setTasksState(response.data.listOfTasks);
+              });
+            });
+        });
       });
   };
   return (

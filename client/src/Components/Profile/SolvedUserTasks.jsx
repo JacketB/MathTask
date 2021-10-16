@@ -5,15 +5,31 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
 import { URL } from "../DatabaseQueries/Querie";
+
 export default function UserTasks(props) {
   const { t, i18n } = useTranslation();
   let history = useHistory();
   const [listOfTasks, setListOfTasks] = useState([]);
+  const [solvedTasks, setSolvedTasks] = useState([]);
   useEffect(() => {
-    axios.get(`${URL}/tasks/byuserId/${props.userid}`).then((response) => {
-      setListOfTasks(response.data);
+    axios.get(`${URL}/tasks`).then((response) => {
+      setListOfTasks(response.data.listOfTasks);
     });
+    axios
+      .get(`${URL}/solved/byUserId`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        setSolvedTasks(response.data);
+      });
   }, []);
+  function SolvedTasks() {
+    let tasks = [];
+    listOfTasks.map((elem) => {
+      elem.id == solvedTasks[elem].taskid ? tasks.push(elem) : console.log("");
+    });
+    return tasks;
+  }
   var columns = [
     { dataField: "title", text: "Задание" },
     { dataField: "taskTopic" },
@@ -27,12 +43,6 @@ export default function UserTasks(props) {
   return (
     <div>
       <h3 className="mb-2">{t("profile.urtask")}</h3>
-      <BootstrapTable
-        keyField="id"
-        data={listOfTasks}
-        columns={columns}
-        rowEvents={rowEvents}
-      />
     </div>
   );
 }

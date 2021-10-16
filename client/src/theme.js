@@ -1,20 +1,26 @@
 import { createGlobalStyle } from "styled-components";
 
 export const lightTheme = {
-  body: "#f2f2f2",
+  content: "#e0e0e0",
+  body: "#fffff",
   comment: "#bbbbbb",
   fontColor: "black",
   but: "#5098eb",
 };
 
 export const darkTheme = {
-  body: "#292928",
+  content: "#292929",
+  body: "#121212",
   comment: "#535353",
   fontColor: "white",
-  but: "#4717f6",
+  but: "#bb86fc",
 };
 
 export const GlobalStyles = createGlobalStyle`
+p{
+  transition:1s;
+  color: ${(props) => props.theme.fontColor}
+}
 .reg{
   transition:1s;
   color: ${(props) => props.theme.fontColor}
@@ -32,11 +38,12 @@ button{
 .header,
 .content {
   transition:1s;
-		background-color: ${(props) => props.theme.body};
+		background-color: ${(props) => props.theme.content};
     color: ${(props) => props.theme.fontColor}
 	}
 .table{
-  color: ${(props) => props.theme.fontColor}
+  color: ${(props) => props.theme.fontColor};
+  border: ${(props) => props.theme.fontColor};
 }
 .taskin{
   background-color: ${(props) => props.theme.body};

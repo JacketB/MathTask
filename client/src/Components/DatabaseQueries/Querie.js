@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+export const URL = "https://mathtask.herokuapp.com";
 
 let allTasks = [];
 let images = [];
@@ -9,27 +9,25 @@ export const AddNewImage = (image) => {
 export const GetImages = () => {
   return images;
 };
-axios.get("http://localhost:3001/tasks").then((response) => {
-  allTasks = response.data.listOfTasks;
-});
-export const GetAllTasks = () => {
-  return allTasks;
-};
+export function GetAllTasks() {
+  const listOfTasks = axios.get(URL + "tasks");
+  return listOfTasks;
+}
 
-export const MostRatedTasks = () => {
+export function MostRatedTasks() {
   let tasks = GetAllTasks();
   let ratings = 0;
   let grades = {};
   tasks.forEach((elem) => {
-    axios.get(`http://localhost:3001/rate/${elem.id}`).then((response) => {
+    axios.get(`${URL}/rate/${elem.id}`).then((response) => {
       grades.push(response.data);
     });
     console.log(grades);
   });
-};
+}
 export const NewRate = (rate) => {
   axios
-    .post("http://localhost/3001/ratings", rate, {
+    .post(`${URL}/ratings`, rate, {
       headers: { accessToken: localStorage.getItem("accessToken") },
     })
     .then(() => {

@@ -40,6 +40,10 @@ module.exports = (sequlize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    average: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
   });
   Tasks.associate = (models) => {
     Tasks.hasMany(models.Comments, {

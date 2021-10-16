@@ -1,7 +1,7 @@
-import { Form, Formik, Field, ErrorMessage } from "formik";
+import toast from "react-hot-toast";
 import { useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router";
+import { URL } from "../DatabaseQueries/Querie";
 export default function CheckAnswer(props) {
   const id = localStorage.getItem("userId");
   const [answer, setAnswer] = useState();
@@ -11,27 +11,27 @@ export default function CheckAnswer(props) {
       answer == props.answer2 ||
       answer == props.answer3
     ) {
-      alert("Верный ответ!");
-      addTask(answer);
+      toast.success("Решено");
+      addSolve(answer);
     } else {
-      alert("Попробуйте снова!" + props.answer1);
+      toast.error("Попробуйте снова!");
     }
   };
-  const addTask = (answer) => {
-    axios
-      .post(`http://localhost:3001/solved/byId/${id}`, answer, {
-        headers: { accessToken: localStorage.getItem("accessToken") },
-      })
-      .then(() => {});
+  const addSolve = (answer) => {
+    axios.post(`${URL}/solved/byId/${id}`, answer, {
+      headers: { accessToken: localStorage.getItem("accessToken") },
+    });
   };
   return (
     <div>
-      <input
+      <textarea
+        className="p-2 rounded w-2/5 h-2/5 mt-2 text-black"
         type="text"
         id="answer"
         onChange={(event) => setAnswer(event.target.value)}
       />
-      <button onClick={check} className="text-white py-2 px-6 rounded-lg">
+      <br />
+      <button onClick={check} className="text-white py-2 px-6 rounded-lg mt-2">
         Check task
       </button>
     </div>

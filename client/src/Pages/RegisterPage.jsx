@@ -1,14 +1,16 @@
-import "../style.css";
+import "../Components/style.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useContext } from "react";
+import { AuthContext } from "../Components/AuthContext";
 import axios from "axios";
 import * as Yup from "yup";
 import { useHistory } from "react-router";
-import FacebookLogin from "./FacebookLogin";
-import LoginWithFacebook from "./FacebookLogin";
-import LoginWithGoogle from "./GoogleLogin";
+import { URL } from "../Components/DatabaseQueries/Querie";
+import SocialMedia from "../Components/Auth/SocialMediaLogin";
 const Register = () => {
+  const { setAuthState } = useContext(AuthContext);
   const initialValues = {
     username: "",
     email: "",
@@ -21,15 +23,28 @@ const Register = () => {
     password: Yup.string().required(),
   });
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/auth", data).then(() => {
-      console.log(data);
+    axios.post(`${URL}/auth`, data).then((response) => {
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        localStorage.setItem("accessToken", response.data.token);
+        localStorage.setItem("userId", response.data.id);
+        localStorage.setItem("username", response.data.username);
+        setAuthState({
+          username: response.data.username,
+          id: response.data.id,
+          status: true,
+        });
+        history.push("/");
+      }
     });
-    history.push("/login");
   };
   return (
     <div>
       <div>
-        <Link to="/">На главную</Link>
+        <Link to="/" className="p-2 rounded-xl hover:bg-gray-300">
+          На главную
+        </Link>
       </div>
       <div className="min-h-screen text-gray-800 antialiased px-4 py-6 sm:py-12">
         <Formik
@@ -67,9 +82,8 @@ const Register = () => {
                     <Link to="/login" className="px-3 text-sm hover:underline">
                       или войдите в аккаунт
                     </Link>
-                    <LoginWithFacebook />
-                    <LoginWithGoogle />
                   </div>
+                  <SocialMedia />
                 </div>
               </div>
             </div>

@@ -1,25 +1,25 @@
-import Navbar from "../Navigation/Navbar";
-import "../style.css";
+import Navbar from "../Components/Navigation/Navbar";
+import "../Components/style.css";
 import { useParams, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
-import Rate from "./Rate";
-import CheckAnswer from "./CheckAnswer";
-import AverageRating from "./AverageRating";
-import Images from "./Images";
+import Rate from "../Components/Task/Rate";
+import CheckAnswer from "../Components/Task/CheckAnswer";
+import AverageRating from "../Components/Task/AverageRating";
+import Images from "../Components/Task/Images";
+import { URL } from "../Components/DatabaseQueries/Querie";
 export default function Task() {
   const { t, i18n } = useTranslation();
   const [comments, setComments] = useState([]);
   const [postObject, setPostObject] = useState({});
   const [newComment, setNewComment] = useState("");
   const [ratings, setRatings] = useState([]);
-  const [images, setImages] = useState([]);
   const addComment = () => {
     axios
       .post(
-        "http://localhost:3001/comments",
+        `${URL}/comments`,
         {
           commentBody: newComment,
           TaskId: id,
@@ -43,15 +43,23 @@ export default function Task() {
         }
       });
   };
-
+  const deletePost = (id) => {
+    axios
+      .delete(`${URL}/tasks/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(() => {
+        history.push("/");
+      });
+  };
   useEffect(() => {
-    axios.get(`http://localhost:3001/tasks/byId/${id}`).then((response) => {
+    axios.get(`${URL}/tasks/byId/${id}`).then((response) => {
       setPostObject(response.data);
     });
-    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+    axios.get(`${URL}/comments/${id}`).then((response) => {
       setComments(response.data);
     });
-    axios.get(`http://localhost:3001/rate/${id}`).then((response) => {
+    axios.get(`${URL}/rate/${id}`).then((response) => {
       setRatings(response.data);
     });
   }, []);
@@ -59,12 +67,12 @@ export default function Task() {
   let { id } = useParams();
   let history = useHistory();
   return (
-    <div className="content border-2 border-gray-500 pb-3">
+    <div className="content pb-3">
       <Navbar />
       <div className="pt-1 px-2">
         <span className="text-3xl">{postObject.title}</span>
         <div className="mt-2">
-          <ReactMarkdown className="border-gray-500 border-2 rounded w-2/3 p-2 mb-2">
+          <ReactMarkdown className="rounded w-2/3 p-2 mb-2">
             {postObject.taskCondition}
           </ReactMarkdown>
           <Images
@@ -72,7 +80,7 @@ export default function Task() {
             img2={postObject.image2}
             img3={postObject.image3}
           />
-          <AverageRating ratings={ratings} />
+          <AverageRating ratings={postObject.average} />
           <CheckAnswer
             answer1={postObject.answer1}
             answer2={postObject.answer2}
@@ -85,9 +93,9 @@ export default function Task() {
 
           <div className="mb-3">
             <span>Оцените задачу:</span>
-            <Rate />
+            <Rate ratings={ratings} />
           </div>
-          {localStorage.getItem("userName") == postObject.username ? (
+          {localStorage.getItem("username") == postObject.username ? (
             <div>
               <button
                 className="text-white py-2 px-6 rounded-lg"
@@ -111,7 +119,7 @@ export default function Task() {
               <textarea
                 cols="200"
                 rows="5"
-                className="text-black min-h-full rounded"
+                className="text-black min-h-full rounded w-full"
                 type="text"
                 autoComplete="off"
                 value={newComment}

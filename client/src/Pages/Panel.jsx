@@ -9,7 +9,7 @@ export default function Panel() {
     if (!localStorage.getItem("accessToken")) {
       history.push("/login");
     }
-    axios.get("http://localhost:3001/list").then((response) => {
+    axios.get("https://mathtask.herokuapp.com/list").then((response) => {
       setListOfUsers(response.data.listOfUsers);
     });
   }, []);

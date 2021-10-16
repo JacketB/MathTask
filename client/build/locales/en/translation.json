@@ -1,6 +1,9 @@
 {
-  "change_theme": "change theme",
-  "changelang":"language",
+  "search" : "search...",
+  "author":"Author",
+  "change_theme": "switch theme",
+  "changelang":"./eng.png",
+    "lasttasks":"Last tasks",
   "navbar": {
     "link1": "Home",
     "link2": "Profile"

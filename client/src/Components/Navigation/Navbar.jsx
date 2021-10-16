@@ -7,7 +7,7 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userId");
-    localStorage.removeItem("userName");
+    localStorage.removeItem("username");
   };
   return (
     <div className="nav p-3 shadow-lg   border-b-2 border-gray-500 flex justify-between">
@@ -40,14 +40,18 @@ const Navbar = () => {
               </span>
             </span>
             <span className="nav-item py-3">
-              <Link to="/login" onClick={logout}>
+              <Link
+                className="hover:text-white cursor-pointer"
+                to="/login"
+                onClick={logout}
+              >
                 logout
               </Link>
             </span>
           </>
         )}
       </div>
-      <div className="inline px-6">{localStorage.getItem("userName")}</div>
+      <div className="inline px-6">{localStorage.getItem("username")}</div>
     </div>
   );
 };

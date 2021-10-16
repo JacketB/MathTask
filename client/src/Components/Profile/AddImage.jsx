@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { AddNewImage, GetImages } from "../DatabaseQueries/Querie";
 const AddImage = () => {
+  const [images, setImages] = useState("");
   const [drag, setDrag] = useState(false);
   function dragStartHandler(e) {
     e.preventDefault();
@@ -16,6 +17,7 @@ const AddImage = () => {
   function onDropHandler(e) {
     e.preventDefault();
     let addedfiles = [...e.dataTransfer.files];
+    setImages(addedfiles);
     const body = new FormData();
     addedfiles.forEach((file) => {
       body.append("image", file);
@@ -35,7 +37,7 @@ const AddImage = () => {
   return (
     <div>
       Загрузите изображения:
-      <div className="p-2 mb-3 mt-1 text-xl text-white w-1/5 bg-gray-500 rounded">
+      <div className="p-2 mb-3 mt-1 text-xl text-white w-80 bg-gray-500 rounded">
         {drag ? (
           <div
             onDragStart={(e) => dragStartHandler(e)}

@@ -1,9 +1,10 @@
-import "../style.css";
+import "../Components/style.css";
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../Components/AuthContext";
 import { Link } from "react-router-dom";
+import { URL } from "../Components/DatabaseQueries/Querie";
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -11,13 +12,13 @@ const Login = () => {
   let history = useHistory();
   const login = () => {
     const data = { username: username, password: password };
-    axios.post("http://localhost:3001/auth/login", data).then((response) => {
+    axios.post(`${URL}/auth/login`, data).then((response) => {
       if (response.data.error) {
         alert(response.data.error);
       } else {
         localStorage.setItem("accessToken", response.data.token);
         localStorage.setItem("userId", response.data.id);
-        localStorage.setItem("userName", response.data.username);
+        localStorage.setItem("username", response.data.username);
         setAuthState({
           username: response.data.username,
           id: response.data.id,
@@ -32,17 +33,19 @@ const Login = () => {
   return (
     <div>
       <div className="reg">
-        <Link to="/">На главную</Link>
+        <Link to="/" className="p-2 rounded-xl hover:bg-gray-300">
+          На главную
+        </Link>
       </div>
       <div className="  text-gray-800 antialiased px-4 py-6 flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl mx-auto text-center">
           <span className="text-2xl font-light reg">Войдите в аккаунт</span>
           <div className="relative mt-4 bg-white shadow-md sm:rounded-lg text-left">
             <div className="py-6 px-8">
-              <label className="block font-semibold">Email</label>
+              <label className="block font-semibold">Username</label>
               <input
                 type="text"
-                placeholder="Email"
+                placeholder="Username"
                 onChange={(event) => {
                   setUsername(event.target.value);
                 }}

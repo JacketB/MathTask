@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Tasks } = require("../models");
-
 const { validateToken } = require("../middlewares/AuthMiddlewares");
 
 router.get("/", async (req, res) => {
@@ -31,10 +30,15 @@ router.post("/", validateToken, async (req, res) => {
   res.json(task);
 });
 
+router.put("/average/:id/:av", async (req, res) => {
+  const average = req.params.av;
+  const id = req.params.id;
+  await Tasks.update({ average: average }, { where: { id: id } });
+  res.json(average);
+});
+
 router.put("/updated", validateToken, async (req, res) => {
   const { newTitle, newTopic, newCondition, id } = req.body;
-  console.log(id.id);
-  console.log(newTopic);
   await Tasks.update(
     { title: newTitle, taskTopic: newTopic, taskCondition: newCondition },
     { where: { id: id.id } }

@@ -2,7 +2,8 @@
   "search" : "search...",
   "author":"Author",
   "change_theme": "switch theme",
-  "changelang":"🇺🇸",
+  "changelang":"https://cdn.countryflags.com/thumbs/russia/flag-round-250.png",
+    "lasttasks":"Last tasks",
   "navbar": {
     "link1": "Home",
     "link2": "Profile"

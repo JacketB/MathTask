@@ -1,13 +1,13 @@
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-import Profile from "./Profile/Profile";
-import Homepage from "./Home/Homepage";
-import Task from "./Task/TaskPage";
-import Login from "./Auth/LoginPage";
-import Register from "./Auth/RegisterPage";
-import AddTask from "./Profile/AddTask";
-import UpdateTask from "./Task/UpdateTask";
-import Panel from "./AdminPanel.jsx/Panel";
-import AllTasks from "./Task/AllTasks";
+import AddTask from "../Pages/AddTaskPage";
+import AllTasks from "../Pages/AllTasksPage";
+import Homepage from "../Pages/Homepage";
+import Login from "../Pages/LoginPage";
+import Profile from "../Pages/Profile";
+import UpdateTask from "../Pages/UpdateTaskPage";
+import Task from "../Pages/TaskPage";
+import Panel from "../Pages/Panel";
+import Register from "../Pages/RegisterPage";
 export default function AppRouter() {
   return (
     <BrowserRouter>

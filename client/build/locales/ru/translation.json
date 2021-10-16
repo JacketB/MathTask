@@ -1,6 +1,9 @@
 {
+  "search" : "поиск...",
+  "author":"Автор",
     "change_theme": "сменить тему",
-    "changelang":"язык",
+    "changelang":"./rus.png",
+    "lasttasks":"Last tasks",
     "navbar": {
       "link1": "Главная",
       "link2": "Профиль"

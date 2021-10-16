@@ -16,4 +16,10 @@ router.post("/byId/:id", validateToken, async (req, res) => {
   }
 });
 
+router.get("/byUserId", validateToken, async (req, res) => {
+  const UserId = req.user.id;
+  const tasks = await SolvedTasks.findAll({ where: { UserId: UserId } });
+  res.json(tasks);
+});
+
 module.exports = router;
