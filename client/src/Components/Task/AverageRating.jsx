@@ -1,8 +1,9 @@
-import { Average } from "../DatabaseQueries/Querie";
+import { useTranslation } from "react-i18next";
 export default function AverageRating(props) {
+  const { t } = useTranslation();
   return (
     <div>
-      <span>Средняя оценка задачи - </span>
+      <span>{t("average")}</span>
       {props.ratings} ⭐
     </div>
   );

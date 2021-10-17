@@ -4,9 +4,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useTranslation } from "react-i18next";
-import { URL } from "../DatabaseQueries/Querie";
+import { columnsForHomeTables, URL } from "../Consts";
 export default function UserTasks(props) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   let history = useHistory();
   const [listOfTasks, setListOfTasks] = useState([]);
   useEffect(() => {
@@ -14,11 +14,6 @@ export default function UserTasks(props) {
       setListOfTasks(response.data);
     });
   }, []);
-  var columns = [
-    { dataField: "title", text: "Задание" },
-    { dataField: "taskTopic" },
-    { dataField: "average" },
-  ];
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
       history.push(`/task/${row.id}`);
@@ -30,7 +25,7 @@ export default function UserTasks(props) {
       <BootstrapTable
         keyField="id"
         data={listOfTasks}
-        columns={columns}
+        columns={columnsForHomeTables}
         rowEvents={rowEvents}
       />
     </div>

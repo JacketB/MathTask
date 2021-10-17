@@ -1,15 +1,22 @@
 {
   "search" : "search...",
   "author":"Author",
-  "change_theme": "switch theme",
   "changelang":"https://cdn.countryflags.com/thumbs/russia/flag-round-250.png",
     "lasttasks":"Last tasks",
+    "mostrated":"Most rated tasks",
+    "username":"Username",
+    "average":"Average rating: ",
+    "checktask":"Check you answer",
+    "answerOK":"Decided!",
+    "answerError":"Try again!",
+    "rate":"Rate",
   "navbar": {
     "link1": "Home",
     "link2": "Profile"
   },
+  "gohome":"To homepage",
   "register":{
-    "regspan": "Sing uo",
+    "regspan": "Sing up",
     "regpass":"Password",
     "regbut":"Sing up",
     "reglink":"or sing in"
@@ -21,14 +28,31 @@
     "loglink":"or sing up"
   },
   "addtask":{
-    "tasktheme":"Task topic",
-    "taskcondition":"Task condition",
-    "taskbut":"Add task"
+    "title":"Title",
+    "condition":"Task description",
+    "topic":"Task topic",
+    "taskbut":"Add new task",
+    "field" : "Fill in the field",
+    "addAnswer":"Add answer to the task",
+    "warning":"Attention! All answers must be correct!",
+    "answer1":"Answer 1",
+    "answer2":"Answer 2",
+    "answer3":"Answer 3",
+    "create":"Create task"
   },
   "profile":{
+    "task":"Task",
     "urtask":"Your task",
+    "solved":"Solved tasks",
     "taskname":"task name",
     "raiting":"task raiting",
     "newtask":"New task"
+  },
+  "taskpage":{
+    "login":"Sing in to send a response to a task",
+    "created":"Task published - ",
+    "rate":"Rate task:",
+    "edit":"Edit",
+    "addcom":"Send"
   }
 }

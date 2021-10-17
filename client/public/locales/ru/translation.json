@@ -1,13 +1,20 @@
 {
   "search" : "поиск...",
   "author":"Автор",
-    "change_theme": "сменить тему",
     "changelang":"https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/United-kingdom_flag_icon_round.svg/1200px-United-kingdom_flag_icon_round.svg.png",
-    "lasttasks":"Last tasks",
+    "lasttasks":"Последние задачи",
+    "mostrated":"Самые оцененные задачи",
+    "username":"Имя пользователя",
+    "average":"Средняя оценка задачи: ",
+    "checktask":"Проверить ответ",
+    "answerOK":"Решено!",
+    "answerError":"Попробуйте еще раз",
+    "rate":"Оценить",
     "navbar": {
       "link1": "Главная",
       "link2": "Профиль"
     },
+    "gohome":"На главную",
     "register":{
       "regspan": "Зарегестрируйтесь",
       "regpass":"Пароль",
@@ -21,14 +28,31 @@
       "loglink":"или создайте аккаунт"
     },
     "addtask":{
-      "tasktheme":"Тема задачи",
-      "taskcondition":"Условие задачи",
-      "taskbut":"Добавить задачу"
+      "title":"Заголовок",
+      "condition":"Условие задачи",
+      "topic":"Тема задачи",
+      "taskbut":"Добавить задачу",
+      "field" : "Заполните поле",
+      "addAnswer":"Добавьте ответы к задаче",
+      "warning":"Внимание! Все ответы должны быть правильными!",
+      "answer1":"Ответ 1",
+      "answer2":"Ответ 2",
+      "answer3":"Ответ 3",
+      "create":"Создать задачу"
     },
     "profile":{
+      "task":"Task",
       "urtask":"Ваши задачи",
       "taskname":"название задачи",
+      "solved":"Решенные задачи",
       "raiting":"рейтинг задачи",
-      "newtask":"Новая задача"
+      "newtask":"Добавить задачу"
+    },
+    "taskpage":{
+      "login":"Войдите чтобы отправить ответ на задачу",
+      "created":"Задача опубликована - ",
+      "rate":"Оцените задачу:",
+      "edit":"Редактировать",
+      "addcom":"Отправить"
     }
   }

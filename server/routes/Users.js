@@ -1,64 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { Users } = require("../models");
-const bcrypt = require("bcryptjs");
-const { validateToken } = require("../middlewares/AuthMiddlewares");
-const { sign } = require("jsonwebtoken");
+const controller = require("../controllers/UsersController");
 
-router.get("/list", async (req, res) => {
-  const listOfUsers = await Users.findAll();
-  res.json({ listOfUsers: listOfUsers });
-});
+router.get("/list", controller.getAllUsers);
 
-router.post("/", async (req, res) => {
-  const { username, password, email } = req.body;
-  const found = await Users.findOne({
-    where: { username: username, email: email },
-  });
-  if (!found) {
-    bcrypt.hash(password, 10).then((hash) => {
-      Users.create({
-        username: username,
-        email: email,
-        password: hash,
-      });
-      res.json(req.body);
-    });
-  } else {
-    res.json({ error: "User has registered" });
-  }
-});
+router.post("/", controller.addNewUser);
 
-router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+router.post("/login", controller.loginUser);
 
-  const user = await Users.findOne({ where: { username: username } });
-
-  if (!user) res.json({ error: "User Doesn't Exist" });
-
-  bcrypt.compare(password, user.password).then(async (match) => {
-    if (!match) res.json({ error: "Wrong Username And Password Combination" });
-
-    const accessToken = sign(
-      { username: user.username, id: user.id },
-      "importantsecret"
-    );
-    res.json({ token: accessToken, username: username, id: user.id });
-  });
-});
-
-router.get("/auth", (req, res) => {
-  res.json(req.user.username);
-});
-
-router.get("/basicinfo/:id", async (req, res) => {
-  const id = req.params.id;
-
-  const basicInfo = await Users.findByPk(id, {
-    attributes: { exclude: ["password"] },
-  });
-
-  res.json(basicInfo);
-});
+router.get("/basicinfo/:id", controller.getUserInfo);
 
 module.exports = router;

@@ -1,40 +1,28 @@
 import BootstrapTable from "react-bootstrap-table-next";
 import { useHistory } from "react-router";
-import { URL } from "../DatabaseQueries/Querie";
-import { useState, useEffect } from "react";
-
-import axios from "axios";
+import { useContext } from "react";
+import { TasksContext } from "../Context/TasksContext";
+import { columnsForHomeTables } from "../Consts";
+import { useTranslation } from "react-i18next";
 export default function MostRatedTasksTable() {
-  const [listOfTasks, setListOfTasks] = useState([]);
+  const { t } = useTranslation();
+  const { tasksState } = useContext(TasksContext);
   function byField(field) {
     return (a, b) => (a[field] > b[field] ? 1 : -1);
   }
   let history = useHistory();
-  var columns = [
-    { dataField: "title", text: "Задание", sort: true },
-    { dataField: "taskTopic" },
-    { dataField: "username" },
-    { dataField: "average", text: "Рейтинг" },
-  ];
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
       history.push(`/task/${row.id}`);
     },
   };
-  useEffect(() => {
-    axios.get(`${URL}/tasks`).then((response) => {
-      setListOfTasks(
-        response.data.listOfTasks.sort(byField("average")).reverse()
-      );
-    });
-  }, []);
   return (
     <div className="p-8">
-      <h2 className="mb-3">Самые оцененные задачи</h2>
+      <h2 className="mb-3">{t("mostrated")}</h2>
       <BootstrapTable
         keyField="id"
-        data={listOfTasks.slice(-5)}
-        columns={columns}
+        data={tasksState.sort(byField("average")).reverse().slice(-5)}
+        columns={columnsForHomeTables}
         rowEvents={rowEvents}
       />
     </div>

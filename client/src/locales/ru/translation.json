@@ -3,6 +3,8 @@
   "author":"Автор",
     "changelang":"https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/United-kingdom_flag_icon_round.svg/1200px-United-kingdom_flag_icon_round.svg.png",
     "lasttasks":"Последние задачи",
+    "tasks":"Задачи",
+    "admin":"Панель администратора",
     "mostrated":"Самые оцененные задачи",
     "username":"Имя пользователя",
     "average":"Средняя оценка задачи: ",
@@ -54,5 +56,6 @@
       "rate":"Оцените задачу:",
       "edit":"Редактировать",
       "addcom":"Отправить"
-    }
+    },
+    "logout":"Выйти"
   }

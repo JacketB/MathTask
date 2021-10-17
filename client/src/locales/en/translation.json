@@ -2,6 +2,8 @@
   "search" : "search...",
   "author":"Author",
   "changelang":"https://cdn.countryflags.com/thumbs/russia/flag-round-250.png",
+  "tasks":"Tasks",
+  "admin":"Admin panel",
     "lasttasks":"Last tasks",
     "mostrated":"Most rated tasks",
     "username":"Username",
@@ -54,5 +56,6 @@
     "rate":"Rate task:",
     "edit":"Edit",
     "addcom":"Send"
-  }
+  },
+  "logout":"Logout"
 }

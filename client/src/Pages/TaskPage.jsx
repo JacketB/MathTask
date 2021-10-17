@@ -9,9 +9,9 @@ import Rate from "../Components/Task/Rate";
 import CheckAnswer from "../Components/Task/CheckAnswer";
 import AverageRating from "../Components/Task/AverageRating";
 import Images from "../Components/Task/Images";
-import { URL } from "../Components/DatabaseQueries/Querie";
+import { URL } from "../Components/Consts";
 export default function Task() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [comments, setComments] = useState([]);
   const [postObject, setPostObject] = useState({});
   const [newComment, setNewComment] = useState("");
@@ -43,15 +43,6 @@ export default function Task() {
         }
       });
   };
-  const deletePost = (id) => {
-    axios
-      .delete(`${URL}/tasks/${id}`, {
-        headers: { accessToken: localStorage.getItem("accessToken") },
-      })
-      .then(() => {
-        history.push("/");
-      });
-  };
   useEffect(() => {
     axios.get(`${URL}/tasks/byId/${id}`).then((response) => {
       setPostObject(response.data);
@@ -81,21 +72,29 @@ export default function Task() {
             img3={postObject.image3}
           />
           <AverageRating ratings={postObject.average} />
-          <CheckAnswer
-            answer1={postObject.answer1}
-            answer2={postObject.answer2}
-            answer3={postObject.answer3}
-          />
+          {!localStorage.getItem("accessToken") ? (
+            <h4>{t("taskpage.login")}</h4>
+          ) : (
+            <>
+              <CheckAnswer
+                id={postObject.id}
+                answer1={postObject.answer1}
+                answer2={postObject.answer2}
+                answer3={postObject.answer3}
+              />
+              <div className="mb-3">
+                <span>{t("taskpage.rate")}</span>
+              </div>
+              <Rate ratings={ratings} />
+            </>
+          )}
           <span className="text-sm">
             Created <p>{postObject.createdAt}</p>
             {t("author")} : {postObject.username}
           </span>
 
-          <div className="mb-3">
-            <span>Оцените задачу:</span>
-            <Rate ratings={ratings} />
-          </div>
-          {localStorage.getItem("username") == postObject.username ? (
+          {localStorage.getItem("username") === postObject.username ||
+          localStorage.getItem("role") !== 1 ? (
             <div>
               <button
                 className="text-white py-2 px-6 rounded-lg"
@@ -103,7 +102,7 @@ export default function Task() {
                   history.push(`/update/${id}`);
                 }}
               >
-                Редактировать
+                {t("taskpage.edit")}
               </button>
             </div>
           ) : (
@@ -132,7 +131,7 @@ export default function Task() {
                 className="mx-2 p-2 rounded text-white"
                 onClick={addComment}
               >
-                Add Comment
+                {t("taskpage.addcom")}
               </button>
             </div>
           </div>
@@ -142,7 +141,10 @@ export default function Task() {
           {comments.map((comment, key) => {
             return (
               <div className="p-2 bg-gray-700 my-2.5 w-5/6 rounded comment">
-                <div className="underline font-bold">{comment.username}</div>
+                <div className="underline font-bold">
+                  {comment.username}
+                  {localStorage.getItem.role !== 0 ? <>- admin</> : <></>}
+                </div>
                 {comment.commentBody}
               </div>
             );

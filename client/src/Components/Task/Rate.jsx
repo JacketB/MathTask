@@ -1,12 +1,15 @@
 import "./Rate.css";
 import toast from "react-hot-toast";
 import { useParams } from "react-router";
-import { NewRate, URL } from "../DatabaseQueries/Querie";
+import { URL } from "../Consts";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useContext } from "react";
-import { TasksContext } from "../TasksContext";
+import { TasksContext } from "../Context/TasksContext";
+import { useTranslation } from "react-i18next";
+
 export default function Rate() {
+  const { t } = useTranslation();
   const [grade, setGrade] = useState();
   const { setTasksState } = useContext(TasksContext);
   let id = useParams();
@@ -34,6 +37,7 @@ export default function Rate() {
             })
             .then(() => {
               axios.get(`${URL}/tasks`).then((response) => {
+                window.location.reload();
                 setTasksState(response.data.listOfTasks);
               });
             });
@@ -103,7 +107,7 @@ export default function Rate() {
         </label>
       </div>
       <button onClick={check} className="text-white py-2 px-6 rounded-lg">
-        Оцениить
+        {t("rate")}
       </button>
     </div>
   );

@@ -1,19 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { Comments } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddlewares");
+const controller = require("../controllers/CommentsController");
 
-router.get("/:taskId", async (req, res) => {
-  const taskId = req.params.taskId;
-  const comments = await Comments.findAll({ where: { taskId: taskId } });
-  res.json(comments);
-});
+router.get("/:taskId", controller.GetComments);
 
-router.post("/", validateToken, async (req, res) => {
-  const comment = req.body;
-  const username = req.user.username;
-  comment.username = username;
-  await Comments.create(comment);
-  res.json(comment);
-});
+router.post("/", validateToken, controller.AddComment);
+
 module.exports = router;

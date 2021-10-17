@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useContext } from "react";
-import axios from "axios";
-import { URL } from "../DatabaseQueries/Querie";
-import { TasksContext } from "../TasksContext";
+import { TasksContext } from "../Context/TasksContext";
 export default function Task() {
-  const { tasksState, setTasksState } = useContext(TasksContext);
-  const { t, i18n } = useTranslation();
+  const { tasksState } = useContext(TasksContext);
+  const { t } = useTranslation();
   const [Search, setSearch] = useState("");
   let history = useHistory();
-  useEffect(() => {
-    axios.get(`${URL}/tasks`).then((response) => {
-      setTasksState(response.data.listOfTasks);
-    });
-  }, []);
-
   return (
     <div>
       <div className="flex justify-center ">
@@ -31,7 +23,7 @@ export default function Task() {
 
       {tasksState
         .filter((value) => {
-          if (Search == "") return value;
+          if (Search === "") return value;
           else if (
             value.taskCondition.toLowerCase().includes(Search.toLowerCase()) ||
             value.title.toLowerCase().includes(Search.toLowerCase()) ||

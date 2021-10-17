@@ -3,7 +3,7 @@ import "../style.css";
 import { useTranslation } from "react-i18next";
 const Navbar = () => {
   let history = useHistory();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const logout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userId");
@@ -18,14 +18,31 @@ const Navbar = () => {
           </Link>
         </span>
         <span className="nav-item py-3">
-          <Link className="hover:text-white" to="/allTasks">
-            Задачи
+          <Link className="hover:text-white " to="/allTasks">
+            {t("tasks")}
           </Link>
         </span>
+        {localStorage.getItem("role") !== 0 ? (
+          <span className="nav-item py-3">
+            <Link to="/admin" className="hover:text-white">
+              {t("admin")}
+            </Link>
+          </span>
+        ) : (
+          <></>
+        )}
         {!localStorage.getItem("accessToken") ? (
           <>
-            <Link to="/login">login</Link>
-            <Link to="/register">register</Link>
+            <span className="nav-item py-3">
+              <Link className="hover:text-white" to="/login">
+                {t("login.logspan")}
+              </Link>
+            </span>
+            <span className="nav-item py-3">
+              <Link className="hover:text-white" to="/register">
+                {t("register.regspan")}
+              </Link>
+            </span>
           </>
         ) : (
           <>
@@ -45,7 +62,7 @@ const Navbar = () => {
                 to="/login"
                 onClick={logout}
               >
-                logout
+                {t("logout")}
               </Link>
             </span>
           </>

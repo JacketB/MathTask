@@ -2,10 +2,13 @@ import "../Components/style.css";
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { AuthContext } from "../Components/AuthContext";
+import { AuthContext } from "../Components/Context/AuthContext";
 import { Link } from "react-router-dom";
-import { URL } from "../Components/DatabaseQueries/Querie";
+import { URL } from "../Components/Consts";
+import { useTranslation } from "react-i18next";
+import "../App.css";
 const Login = () => {
+  const { t } = useTranslation();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const { setAuthState } = useContext(AuthContext);
@@ -13,36 +16,36 @@ const Login = () => {
   const login = () => {
     const data = { username: username, password: password };
     axios.post(`${URL}/auth/login`, data).then((response) => {
+      console.log(response.data);
       if (response.data.error) {
         alert(response.data.error);
       } else {
         localStorage.setItem("accessToken", response.data.token);
         localStorage.setItem("userId", response.data.id);
         localStorage.setItem("username", response.data.username);
+        localStorage.setItem("role", response.data.role);
         setAuthState({
           username: response.data.username,
           id: response.data.id,
           status: true,
         });
-        if (response.data.username == "admin") {
-          history.push("/admin");
-        } else history.push("/");
+        history.push("/");
       }
     });
   };
   return (
-    <div>
-      <div className="reg">
+    <div className="  login bg-right bg-no-repeat">
+      <div className="reg ">
         <Link to="/" className="p-2 rounded-xl hover:bg-gray-300">
-          На главную
+          {t("gohome")}
         </Link>
       </div>
-      <div className="  text-gray-800 antialiased px-4 py-6 flex flex-col justify-center sm:py-12">
-        <div className="relative py-3 sm:max-w-xl mx-auto text-center">
-          <span className="text-2xl font-light reg">Войдите в аккаунт</span>
+      <div className=" min-h-screen text-gray-800 antialiased px-4 py-6 flex flex-col sm:py-12 ">
+        <div className="relative py-3 sm:max-w-xl  text-center">
+          <span className="text-2xl font-light reg">{t("login.logspan")}</span>
           <div className="relative mt-4 bg-white shadow-md sm:rounded-lg text-left">
             <div className="py-6 px-8">
-              <label className="block font-semibold">Username</label>
+              <label className="block font-semibold">{t("username")}</label>
               <input
                 type="text"
                 placeholder="Username"
@@ -51,7 +54,9 @@ const Login = () => {
                 }}
                 className=" border w-full h-5 px-3 py-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md "
               />
-              <label className="block mt-3 font-semibold">Пароль</label>
+              <label className="block mt-3 font-semibold">
+                {t("login.logpass")}
+              </label>
               <input
                 type="password"
                 placeholder="Password"
@@ -65,11 +70,11 @@ const Login = () => {
                   onClick={login}
                   className="mt-4 bg-indigo-500 text-white py-2 px-6 rounded-lg"
                 >
-                  Вход
+                  {t("login.logbut")}
                 </button>
 
                 <Link className="px-3 text-sm hover:underline" to="/register">
-                  или создайте аккаунт
+                  {t("login.loglink")}
                 </Link>
               </div>
             </div>

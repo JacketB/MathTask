@@ -1,36 +1,25 @@
 import BootstrapTable from "react-bootstrap-table-next";
 import { useHistory } from "react-router";
-import { URL } from "../DatabaseQueries/Querie";
-import { useState, useEffect } from "react";
-
-import axios from "axios";
+import { useTranslation } from "react-i18next";
+import { columnsForHomeTables } from "../Consts";
+import { useContext } from "react";
+import { TasksContext } from "../Context/TasksContext";
 export default function LastTasksTable() {
-  const [listOfTasks, setListOfTasks] = useState([]);
+  const { t } = useTranslation();
+  const { tasksState } = useContext(TasksContext);
   let history = useHistory();
-  var columns = [
-    { dataField: "title", text: "Задание", sort: true },
-    { dataField: "taskTopic" },
-    { dataField: "username" },
-    { dataField: "average", text: "Рейтинг" },
-  ];
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
       history.push(`/task/${row.id}`);
     },
   };
-
-  useEffect(() => {
-    axios.get(`${URL}/tasks`).then((response) => {
-      setListOfTasks(response.data.listOfTasks);
-    });
-  }, []);
   return (
     <div className="p-8">
-      <h2 className="mb-3">Последние задачи</h2>
+      <h2 className="mb-3">{t("lasttasks")}</h2>
       <BootstrapTable
         keyField="id"
-        data={listOfTasks.slice(-5)}
-        columns={columns}
+        data={tasksState.slice(-5)}
+        columns={columnsForHomeTables}
         rowEvents={rowEvents}
         className="table"
       />

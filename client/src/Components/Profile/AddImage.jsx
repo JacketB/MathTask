@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { AddNewImage, GetImages } from "../DatabaseQueries/Querie";
 const AddImage = () => {
-  const [images, setImages] = useState("");
+  const [setImages] = useState("");
   const [drag, setDrag] = useState(false);
   function dragStartHandler(e) {
     e.preventDefault();

@@ -1,43 +1,41 @@
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 import React, { useContext } from "react";
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "../Context/AuthContext";
 import { useHistory } from "react-router";
-import { URL } from "../DatabaseQueries/Querie";
+import { URL } from "../Consts";
 export default function LoginWithGoogle() {
   const { setAuthState } = useContext(AuthContext);
   const history = useHistory();
   const responseGoogle = (response) => {
     console.log(response);
-    // LogIn(response);
+    LogIn(response);
   };
   const LogIn = (data) => {
-    const username = data.it.Re;
-    const email = data.it.Tt;
-    const password = data.it.sT;
-    axios
-      .post(`${URL}/auth`, {
-        username,
-        password,
-        email,
-      })
-      .then(() => {
-        axios.post(`${URL}/login`, { username, password }).then((response) => {
-          if (response.data.error) {
-            alert(response.data.error);
-          } else {
-            localStorage.setItem("accessToken", response.data.token);
-            localStorage.setItem("userId", response.data.id);
-            localStorage.setItem("username", response.data.username);
-            setAuthState({
-              username: response.data.username,
-              id: response.data.id,
-              status: true,
-            });
-            history.push("/");
-          }
-        });
+    const newUser = {
+      username: data.it.Re,
+      email: data.it.Tt,
+      password: data.it.sT,
+      role: 0,
+    };
+    axios.post(`${URL}/auth`, newUser).then(() => {
+      axios.post(`${URL}/auth/login`, newUser).then((response) => {
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          localStorage.setItem("accessToken", response.data.token);
+          localStorage.setItem("userId", response.data.id);
+          localStorage.setItem("username", response.data.username);
+          localStorage.setItem("role", response.data.role);
+          setAuthState({
+            username: response.data.username,
+            id: response.data.id,
+            status: true,
+          });
+          history.push("/");
+        }
       });
+    });
   };
   return (
     <div>

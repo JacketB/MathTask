@@ -2,14 +2,17 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useHistory } from "react-router";
+import { URL, UserColumns } from "../Components/Consts";
+import Navbar from "../Components/Navigation/Navbar";
 export default function Panel() {
   let history = useHistory();
   const [listOfUsers, setListOfUsers] = useState([]);
+
+  if (!localStorage.getItem("accessToken")) {
+    history.push("/login");
+  }
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      history.push("/login");
-    }
-    axios.get("https://mathtask.herokuapp.com/list").then((response) => {
+    axios.get(`${URL}/list/list`).then((response) => {
       setListOfUsers(response.data.listOfUsers);
     });
   }, []);
@@ -18,19 +21,18 @@ export default function Panel() {
       history.push(`/profile/${row.id}`);
     },
   };
-  let columns = [
-    { dataField: "id", text: "Id" },
-    { dataField: "email", text: "Email" },
-    { dataField: "username", text: "Username" },
-  ];
+
   return (
-    <div>
-      <BootstrapTable
-        keyField="id"
-        data={listOfUsers}
-        columns={columns}
-        rowEvents={rowEvents}
-      />
+    <div className="content">
+      <Navbar />
+      <div className="p-3">
+        <BootstrapTable
+          keyField="id"
+          data={listOfUsers}
+          columns={UserColumns}
+          rowEvents={rowEvents}
+        />
+      </div>
     </div>
   );
 }

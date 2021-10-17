@@ -1,9 +1,7 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { func, string } from "prop-types";
 import "../style.css";
 const Toggle = ({ theme, toggleTheme }) => {
-  const { t, i18n } = useTranslation();
   const themebutton = theme === "light" ? "🌚" : "🌞";
   return (
     <button
