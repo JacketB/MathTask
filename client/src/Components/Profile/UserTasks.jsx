@@ -21,7 +21,7 @@ export default function UserTasks(props) {
   };
   return (
     <div>
-      <h3 className="mb-2">{t("profile.urtask")}</h3>
+      <h3 className="mb-2">{t("tasks")}</h3>
       <BootstrapTable
         keyField="id"
         data={listOfTasks}

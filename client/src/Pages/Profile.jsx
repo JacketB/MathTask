@@ -37,12 +37,16 @@ const Profile = () => {
           </div>
         </div>
         <div>
-          <button
-            className="text-white mx-2 mb-10 p-2 px-6 rounded-lg"
-            onClick={() => history.push("/add")}
-          >
-            {t("profile.newtask")}
-          </button>
+          {id != localStorage.getItem("userId") ? (
+            <></>
+          ) : (
+            <button
+              className="text-white mx-2 mb-10 p-2 px-6 rounded-lg"
+              onClick={() => history.push("/add")}
+            >
+              {t("profile.newtask")}
+            </button>
+          )}
         </div>
       </div>
     </div>

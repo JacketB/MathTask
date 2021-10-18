@@ -9,6 +9,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
+  card: "#373737",
   content: "#292929",
   body: "#121212",
   comment: "#535353",
@@ -17,6 +18,10 @@ export const darkTheme = {
 };
 
 export const GlobalStyles = createGlobalStyle`
+.card{
+  transition:1s;
+  background-color:${(props) => props.theme.card};
+}
 p{
   transition:1s;
   color: ${(props) => props.theme.fontColor}

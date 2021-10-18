@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { AddNewImage, GetImages } from "../DatabaseQueries/Querie";
 const AddImage = () => {
-  const [setImages] = useState("");
   const [drag, setDrag] = useState(false);
   function dragStartHandler(e) {
     e.preventDefault();
@@ -17,7 +16,7 @@ const AddImage = () => {
   function onDropHandler(e) {
     e.preventDefault();
     let addedfiles = [...e.dataTransfer.files];
-    setImages(addedfiles);
+    console.log(addedfiles);
     const body = new FormData();
     addedfiles.forEach((file) => {
       body.append("image", file);

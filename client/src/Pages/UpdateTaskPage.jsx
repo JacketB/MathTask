@@ -35,9 +35,9 @@ export default function UpdateTask() {
     });
   }, []);
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required("You must input a Title!"),
-    taskTopic: Yup.string().required(),
-    taskCondition: Yup.string().required(),
+    title: Yup.string().required(t("addtask.field")),
+    taskTopic: Yup.string().required(t("addtask.field")),
+    taskCondition: Yup.string().required(t("addtask.field")),
   });
   const onSubmit = (data) => {
     axios

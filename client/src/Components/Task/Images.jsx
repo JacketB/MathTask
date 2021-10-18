@@ -8,7 +8,7 @@ export default function Images(props) {
     setCurrentImage(index);
     setIsViewerOpen(true);
   }, []);
-
+  console.log(images);
   const closeImageViewer = () => {
     setCurrentImage(0);
     setIsViewerOpen(false);

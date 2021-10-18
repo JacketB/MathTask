@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { useHistory } from "react-router";
 import { URL } from "../Consts";
+import { setLoginInfo } from "../Consts";
 export default function LoginWithGoogle() {
   const { setAuthState } = useContext(AuthContext);
   const history = useHistory();
@@ -23,10 +24,7 @@ export default function LoginWithGoogle() {
         if (response.data.error) {
           alert(response.data.error);
         } else {
-          localStorage.setItem("accessToken", response.data.token);
-          localStorage.setItem("userId", response.data.id);
-          localStorage.setItem("username", response.data.username);
-          localStorage.setItem("role", response.data.role);
+          setLoginInfo(response.data);
           setAuthState({
             username: response.data.username,
             id: response.data.id,

@@ -6,20 +6,15 @@ import * as Yup from "yup";
 import AddImage from "../Components/Profile/AddImage";
 import axios from "axios";
 import { GetImages } from "../Components/DatabaseQueries/Querie";
-import { Topics, URL } from "../Components/Consts";
+import { TaskInitialValues, Topics, URL } from "../Components/Consts";
 import "../App.css";
 import Navbar from "../Components/Navigation/Navbar";
+import { TasksContext } from "../Components/Context/TasksContext";
+import { useContext } from "react";
 export default function AddTask() {
   let history = useHistory();
   const { t } = useTranslation();
-  const initialValues = {
-    title: "",
-    taskTopic: "",
-    taskCondition: "",
-    answer1: "",
-    answer2: "",
-    answer3: "",
-  };
+  const { setTasksState } = useContext(TasksContext);
   if (!localStorage.getItem("accessToken")) {
     history.push("/login");
   }
@@ -39,6 +34,9 @@ export default function AddTask() {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
+        axios.get(`${URL}/tasks`).then((response) => {
+          setTasksState(response.data.listOfTasks);
+        });
         history.push("/");
       });
   };
@@ -52,7 +50,7 @@ export default function AddTask() {
         </div>
         <div className="">
           <Formik
-            initialValues={initialValues}
+            initialValues={TaskInitialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
           >

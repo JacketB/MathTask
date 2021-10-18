@@ -58,4 +58,30 @@ module.exports = {
 
     res.json(basicInfo);
   },
+
+  updateUserData: async (req, res) => {
+    const { id, newusername, email } = req.body;
+    await Users.update(
+      {
+        username: newusername,
+        email: email,
+      },
+      { where: { id: id } }
+    );
+    res.json("UPDATED");
+  },
+  updateUserRole: async (req, res) => {
+    const { id, role } = req.body;
+    await Users.update({ role: role }, { where: { id: id } });
+    res.json("ROLE UPDATED");
+  },
+  deleteUser: async (req, res) => {
+    const id = req.params.id;
+    await Users.destroy({
+      where: {
+        id: id,
+      },
+    });
+    res.json("DELETED");
+  },
 };

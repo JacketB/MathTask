@@ -57,5 +57,14 @@
     "edit":"Edit",
     "addcom":"Send"
   },
-  "logout":"Logout"
+  "logout":"Logout",
+
+    "changerole":"Chenge user role",
+    "select": "Select user",
+    "newrole": "New role",
+    "updateData":"Update user data",
+    "delete":"Delete user",
+    "user":"User",
+    "Admin":"Administartor"
+
 }

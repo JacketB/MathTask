@@ -1,21 +1,18 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useHistory } from "react-router";
-import { URL, UserColumns } from "../Components/Consts";
+import { UserColumns } from "../Components/Consts";
+import { UsersContext } from "../Components/Context/UsersContext";
 import Navbar from "../Components/Navigation/Navbar";
+import { useContext } from "react";
+import EditRole from "../Components/Admin/EditRole";
+import DeleteUser from "../Components/Admin/DeleteUser";
 export default function Panel() {
   let history = useHistory();
-  const [listOfUsers, setListOfUsers] = useState([]);
+  const { usersState } = useContext(UsersContext);
 
   if (!localStorage.getItem("accessToken")) {
     history.push("/login");
   }
-  useEffect(() => {
-    axios.get(`${URL}/list/list`).then((response) => {
-      setListOfUsers(response.data.listOfUsers);
-    });
-  }, []);
   const rowEvents = {
     onClick: (e, row, rowIndex) => {
       history.push(`/profile/${row.id}`);
@@ -23,15 +20,19 @@ export default function Panel() {
   };
 
   return (
-    <div className="content">
+    <div className="content pb-10">
       <Navbar />
       <div className="p-3">
         <BootstrapTable
           keyField="id"
-          data={listOfUsers}
+          data={usersState}
           columns={UserColumns}
           rowEvents={rowEvents}
         />
+      </div>
+      <div className="grid grid-cols-2 grid-rows-1">
+        <EditRole />
+        <DeleteUser />
       </div>
     </div>
   );

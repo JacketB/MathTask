@@ -11,10 +11,12 @@ import { useState } from "react";
 import Toasters from "./Components/Toasters";
 import { TasksContext } from "./Components/Context/TasksContext";
 import { SolvedContext } from "./Components/Context/SolvedTasksContext";
+import { UsersContext } from "./Components/Context/UsersContext";
 import { useEffect } from "react";
 import { URL } from "./Components/Consts";
 import axios from "axios";
 function App() {
+  const [usersState, setUsersState] = useState([]);
   const [authState, setAuthState] = useState(false);
   const [tasksState, setTasksState] = useState([]);
   const [solvedState, setSolvedState] = useState([]);
@@ -30,29 +32,34 @@ function App() {
       .then((response) => {
         setSolvedState(response.data);
       });
+    axios.get(`${URL}/list/list`).then((response) => {
+      setUsersState(response.data.listOfUsers);
+    });
   }, []);
   const themeMode = theme === "light" ? lightTheme : darkTheme;
   if (!mountedComponent) return <div />;
   return (
-    <SolvedContext.Provider value={{ solvedState, setSolvedState }}>
-      <AuthContext.Provider value={{ authState, setAuthState }}>
-        <TasksContext.Provider value={{ tasksState, setTasksState }}>
-          <ThemeProvider theme={themeMode}>
-            <GlobalStyles />
-            <div className="app min-h-screen bg-bottom bg-no-repeat">
-              <div className="header m-3 p-2 flex ">
-                <Toggle theme={theme} toggleTheme={themeToggler} />
-                <Changelanguage />
+    <UsersContext.Provider value={{ usersState, setUsersState }}>
+      <SolvedContext.Provider value={{ solvedState, setSolvedState }}>
+        <AuthContext.Provider value={{ authState, setAuthState }}>
+          <TasksContext.Provider value={{ tasksState, setTasksState }}>
+            <ThemeProvider theme={themeMode}>
+              <GlobalStyles />
+              <div className="app min-h-screen bg-bottom bg-no-repeat">
+                <div className="header m-3 p-2 flex ">
+                  <Toggle theme={theme} toggleTheme={themeToggler} />
+                  <Changelanguage />
+                </div>
+                <div className="wrapper m-3">
+                  <Toasters />
+                  <AppRouter />
+                </div>
               </div>
-              <div className="wrapper m-3">
-                <Toasters />
-                <AppRouter />
-              </div>
-            </div>
-          </ThemeProvider>
-        </TasksContext.Provider>
-      </AuthContext.Provider>
-    </SolvedContext.Provider>
+            </ThemeProvider>
+          </TasksContext.Provider>
+        </AuthContext.Provider>
+      </SolvedContext.Provider>
+    </UsersContext.Provider>
   );
 }
 

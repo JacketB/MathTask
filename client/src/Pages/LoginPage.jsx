@@ -6,6 +6,7 @@ import { AuthContext } from "../Components/Context/AuthContext";
 import { Link } from "react-router-dom";
 import { URL } from "../Components/Consts";
 import { useTranslation } from "react-i18next";
+import { setLoginInfo } from "../Components/Consts";
 import "../App.css";
 const Login = () => {
   const { t } = useTranslation();
@@ -20,10 +21,7 @@ const Login = () => {
       if (response.data.error) {
         alert(response.data.error);
       } else {
-        localStorage.setItem("accessToken", response.data.token);
-        localStorage.setItem("userId", response.data.id);
-        localStorage.setItem("username", response.data.username);
-        localStorage.setItem("role", response.data.role);
+        setLoginInfo(response.data);
         setAuthState({
           username: response.data.username,
           id: response.data.id,

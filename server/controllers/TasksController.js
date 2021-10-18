@@ -56,17 +56,7 @@ module.exports = {
       },
       { where: { id: id.id } }
     );
-    res.json(
-      newTitle,
-      newTopic,
-      newCondition,
-      newAnswer1,
-      newAnswer2,
-      newAnswer3,
-      newImg1,
-      newImg2,
-      newImg3
-    );
+    res.json("UPDATED");
   },
   DeleteTask: async (req, res) => {
     const id = req.params.id;
