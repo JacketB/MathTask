@@ -30,6 +30,7 @@ export default function UpdateTask() {
     history.push("/");
   };
   useEffect(() => {
+    console.log(id.id);
     axios.get(`${URL}/tasks/byId/${id.id}`).then((response) => {
       setTaskObject(response.data);
     });
@@ -60,7 +61,7 @@ export default function UpdateTask() {
   return (
     <div className="content pb-3  ">
       <Navbar />
-      <button onClick={() => deletePost(id.id)}>Удалить задачу</button>
+
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -150,6 +151,12 @@ export default function UpdateTask() {
             <AddImage />
             <button type="submit" className="text-white py-2 px-6 rounded-lg">
               {t("addtask.create")}
+            </button>
+            <button
+              className="m-3 p-2 rounded-lg text-white"
+              onClick={() => deletePost(id.id)}
+            >
+              {t("deletetask")}
             </button>
           </div>
         </Form>

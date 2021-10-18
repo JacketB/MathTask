@@ -18,7 +18,7 @@ export default function DeleteUser() {
     axios.delete(`${URL}/list/delete/${data.id}`).then(() => {
       axios.get(`${URL}/list/list`).then((response) => {
         setUsersState(response.data.listOfUsers);
-        toast.success("Успешно!");
+        toast.success(t("answerOK"));
       });
       axios.get(`${URL}/tasks`).then((response) => {
         setTasksState(response.data.listOfTasks);

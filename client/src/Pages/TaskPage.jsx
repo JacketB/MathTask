@@ -97,9 +97,9 @@ export default function Task() {
           {!localStorage.getItem("accessToken") ? (
             <></>
           ) : localStorage.getItem("username") == postObject.username ? (
-            <EditButton id="65" />
+            <EditButton id={postObject.id} />
           ) : localStorage.getItem("role") != 0 ? (
-            <EditButton id="65" />
+            <EditButton id={postObject.id} />
           ) : (
             <></>
           )}

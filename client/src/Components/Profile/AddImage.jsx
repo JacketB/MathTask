@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { AddNewImage, GetImages } from "../DatabaseQueries/Querie";
 const AddImage = () => {
+  const { t } = useTranslation();
   const [drag, setDrag] = useState(false);
   function dragStartHandler(e) {
     e.preventDefault();
@@ -35,7 +37,7 @@ const AddImage = () => {
   }
   return (
     <div>
-      Загрузите изображения:
+      <p className="text-xl pb-2">{t("addimage")}</p>
       <div className="p-2 mb-3 mt-1 text-xl text-white w-80 bg-gray-500 rounded">
         {drag ? (
           <div
@@ -44,7 +46,7 @@ const AddImage = () => {
             onDragOver={(e) => dragStartHandler(e)}
             onDrop={(e) => onDropHandler(e)}
           >
-            Отпутстите файлы для отправки на сервер
+            {t("drop")}
           </div>
         ) : (
           <div
@@ -52,7 +54,7 @@ const AddImage = () => {
             onDragLeave={(e) => dragLeaveHandler(e)}
             onDragOver={(e) => dragStartHandler(e)}
           >
-            Перенесите один или несколько файлов для отправки
+            {t("drop1")}
           </div>
         )}
       </div>

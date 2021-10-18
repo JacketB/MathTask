@@ -65,6 +65,9 @@
     "updateData":"Update user data",
     "delete":"Delete user",
     "user":"User",
-    "Admin":"Administartor"
-
+    "Admin":"Administartor",
+    "deletetask": "Delete task",
+    "addimage":"Upload images (up to three images)",
+    "drop":"Release files to send to server"
+    ,"drop1":"Transfer one or more files to send"
 }
